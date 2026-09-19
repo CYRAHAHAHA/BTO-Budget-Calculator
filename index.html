@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Housing Readiness — Modes of Sale &amp; Budget</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🏠%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#EEF2F1;
+    --surface:#FFFFFF;
+    --ink:#142433;
+    --ink-soft:#45545C;
+    --brass:#9C6F1E;
+    --brass-bg:#F3E7CE;
+    --teal:#2F6E62;
+    --teal-bg:#DCEAE6;
+    --rust:#A83E28;
+    --rust-bg:#F3DED7;
+    --slate:#3E5361;
+    --slate-bg:#DEE6E6;
+    --line:#C9CDC7;
+    --grid-line: rgba(20,36,51,0.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0F1B22;
+      --surface:#16262E;
+      --ink:#EDF2F1;
+      --ink-soft:#B7C4C2;
+      --brass:#E0A94A;
+      --brass-bg:#3A2E14;
+      --teal:#6FC2AE;
+      --teal-bg:#173330;
+      --rust:#E28569;
+      --rust-bg:#3A2018;
+      --slate:#9FB2BE;
+      --slate-bg:#1E2E33;
+      --line:#2A3B41;
+      --grid-line: rgba(237,242,241,0.05);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0F1B22;
+    --surface:#16262E;
+    --ink:#EDF2F1;
+    --ink-soft:#B7C4C2;
+    --brass:#E0A94A;
+    --brass-bg:#3A2E14;
+    --teal:#6FC2AE;
+    --teal-bg:#173330;
+    --rust:#E28569;
+    --rust-bg:#3A2018;
+    --slate:#9FB2BE;
+    --slate-bg:#1E2E33;
+    --line:#2A3B41;
+    --grid-line: rgba(237,242,241,0.05);
+  }
+
+  *{box-sizing:border-box;}
+  html{font-size:19px;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      repeating-linear-gradient(0deg, var(--grid-line) 0 1px, transparent 1px 48px),
+      repeating-linear-gradient(90deg, var(--grid-line) 0 1px, transparent 1px 48px),
+      var(--bg);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', system-ui, sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Archivo', system-ui, sans-serif;
+    letter-spacing:-0.01em;
+    margin:0;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+
+  /* ---- Hero ---- */
+  header.hero{padding:76px 0 48px;border-bottom:3px solid var(--ink);}
+  .kicker-line{
+    display:flex;align-items:center;gap:12px;margin-bottom:20px;
+  }
+  .kicker-line .dot{width:10px;height:10px;background:var(--brass);border-radius:50%;flex:none;}
+  .kicker-line span{font-size:1rem;color:var(--ink-soft);}
+  header.hero h1{font-size:clamp(2.3rem, 4.8vw, 3.4rem);font-weight:800;max-width:14ch;}
+  header.hero p{max-width:52ch;color:var(--ink-soft);font-size:1.18rem;margin-top:16px;}
+
+  /* ---- Section shell ---- */
+  section{padding:64px 0;}
+  section + section{border-top:1px solid var(--line);}
+  .section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:28px;flex-wrap:wrap;}
+  .section-head h2{font-size:1.85rem;font-weight:700;}
+  .section-head .tally{font-family:'IBM Plex Mono',monospace;color:var(--ink-soft);font-size:1rem;}
+
+  /* ---- Mode cards ---- */
+  .modes-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
+  }
+  @media (max-width:860px){.modes-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:520px){.modes-grid{grid-template-columns:1fr;}}
+  .mode-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-top:5px solid var(--accent);
+    padding:26px 22px 28px;
+    display:flex;flex-direction:column;gap:15px;
+  }
+  .mode-card .icon-badge{
+    width:46px;height:46px;border-radius:9px;
+    background:var(--accent-bg);color:var(--accent);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .mode-card h3{font-size:1.22rem;font-weight:700;}
+  .mode-card .field{font-size:0.96rem;}
+  .mode-card .field b{
+    display:block;font-size:0.76rem;text-transform:none;color:var(--accent);
+    font-weight:600;margin-bottom:3px;
+  }
+  .mode-card .field p{margin:0;color:var(--ink-soft);}
+
+  /* ---- Budget: assumption + preflight ---- */
+  .callout{
+    background:var(--surface);border:1px solid var(--line);
+    border-left:5px solid var(--brass);
+    padding:20px 22px;font-size:1.04rem;color:var(--ink-soft);margin-bottom:26px;
+  }
+  .callout b{color:var(--ink);}
+
+  /* ---- Classification table ---- */
+  .class-table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);margin-bottom:22px;}
+  .class-table th,.class-table td{padding:13px 16px;text-align:left;border-bottom:1px solid var(--line);font-size:0.96rem;}
+  .class-table th{font-family:'Archivo';font-weight:700;font-size:0.92rem;border-bottom:2px solid var(--ink);}
+  .class-table td.row-label{color:var(--ink-soft);}
+  .class-table td.standard{color:var(--teal);font-family:'IBM Plex Mono',monospace;font-weight:600;}
+  .class-table td.plus{color:var(--brass);font-family:'IBM Plex Mono',monospace;font-weight:600;}
+  .class-table td.prime{color:var(--rust);font-family:'IBM Plex Mono',monospace;font-weight:600;}
+  .class-table tr:last-child td{border-bottom:none;}
+  @media (max-width:640px){
+    .class-table{font-size:0.85rem;}
+    .class-table th,.class-table td{padding:10px 8px;}
+  }
+  .notes-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:8px;}
+  @media (max-width:640px){.notes-row{grid-template-columns:1fr;}}
+  .note-card{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--slate);padding:16px 18px;font-size:0.92rem;color:var(--ink-soft);}
+  .note-card b{color:var(--ink);}
+
+  /* ---- Timeline ---- */
+  .timeline{position:relative;margin:36px 0 8px;}
+  .timeline-track{display:flex;gap:0;position:relative;}
+  .timeline-track::before{
+    content:'';position:absolute;top:11px;left:0;right:0;height:2px;background:var(--line);
+  }
+  @media (max-width:760px){
+    .timeline-track{flex-direction:column;gap:0;}
+    .timeline-track::before{top:0;bottom:0;left:11px;right:auto;width:2px;height:auto;}
+  }
+  .tl-node{flex:1;position:relative;padding:0 14px 8px 0;}
+  @media (max-width:760px){.tl-node{padding:0 0 24px 32px;}}
+  .tl-dot{
+    width:24px;height:24px;border-radius:50%;background:var(--surface);border:2px solid var(--accent);
+    display:flex;align-items:center;justify-content:center;margin-bottom:14px;position:relative;z-index:1;
+  }
+  @media (max-width:760px){.tl-dot{position:absolute;left:0;top:0;margin-bottom:0;}}
+  .tl-dot::after{content:'';width:9px;height:9px;border-radius:50%;background:var(--accent);}
+  .tl-node .status{
+    font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--accent);
+    text-transform:none;margin-bottom:4px;
+  }
+  .tl-node h4{font-size:1.02rem;font-weight:700;margin:0 0 6px;font-family:'Archivo';}
+  .tl-node p{margin:0;font-size:0.88rem;color:var(--ink-soft);}
+  .tl-node.dashed .tl-dot{border-style:dashed;}
+
+  .supply-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:32px;}
+  @media (max-width:640px){.supply-strip{grid-template-columns:repeat(2,1fr);}}
+  .supply-card{border:1px solid var(--line);background:var(--surface);padding:16px 16px;}
+  .supply-card .num{font-family:'IBM Plex Mono',monospace;font-size:1.3rem;color:var(--ink);font-weight:600;display:block;}
+  .supply-card .lbl{font-size:0.82rem;color:var(--ink-soft);margin-top:3px;display:block;}
+
+  /* ---- Staying updated ---- */
+  .resource-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+  @media (max-width:640px){.resource-grid{grid-template-columns:1fr;}}
+  .resource-card{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--teal);padding:18px 20px;}
+  .resource-card h4{margin:0 0 6px;font-size:1rem;font-family:'Archivo';font-weight:700;}
+  .resource-card p{margin:0;font-size:0.9rem;color:var(--ink-soft);}
+
+  /* ---- Past exercise price history ---- */
+  .price-table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);font-size:0.92rem;}
+  .price-table th,.price-table td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line);}
+  .price-table th{font-family:'Archivo';font-weight:700;font-size:0.82rem;border-bottom:2px solid var(--ink);}
+  .price-table tr:last-child td{border-bottom:none;}
+  .price-table td.price{font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--ink);white-space:nowrap;}
+  .price-table td.tag{font-family:'IBM Plex Mono',monospace;font-size:0.78rem;}
+  .price-table td.tag.standard{color:var(--teal);}
+  .price-table td.tag.plus{color:var(--brass);}
+  .price-table td.tag.prime{color:var(--rust);}
+  .price-table-wrap{overflow-x:auto;}
+  @media (max-width:720px){.price-table{font-size:0.82rem;}.price-table th,.price-table td{padding:9px 8px;}}
+
+  .preflight{
+    display:flex;gap:0;margin-bottom:36px;border:1px solid var(--line);background:var(--surface);
+    flex-wrap:wrap;
+  }
+  .preflight .step{flex:1;min-width:240px;padding:22px 24px;position:relative;}
+  .preflight .step:first-child{border-right:1px dashed var(--line);}
+  @media (max-width:600px){.preflight .step:first-child{border-right:none;border-bottom:1px dashed var(--line);}}
+  .preflight .step .tag{
+    font-family:'IBM Plex Mono',monospace;font-size:0.8rem;color:var(--teal);
+    background:var(--teal-bg);display:inline-block;padding:3px 10px;margin-bottom:10px;
+  }
+  .preflight .step h4{margin:0 0 7px;font-size:1.1rem;font-family:'Archivo';font-weight:700;}
+  .preflight .step p{margin:0;font-size:0.96rem;color:var(--ink-soft);}
+
+  /* ---- Estimator ---- */
+  .estimator{
+    display:grid;grid-template-columns:1fr 1fr;gap:0;
+    border:1px solid var(--line);background:var(--surface);
+  }
+  @media (max-width:720px){.estimator{grid-template-columns:1fr;}}
+  .estimator .inputs{padding:32px 30px 34px;border-right:1px solid var(--line);}
+  @media (max-width:720px){.estimator .inputs{border-right:none;border-bottom:1px solid var(--line);}}
+  .estimator .outputs{padding:32px 30px;background:var(--slate-bg);}
+  .field-group{margin-bottom:24px;}
+  .field-group label{display:block;font-size:0.92rem;color:var(--ink-soft);margin-bottom:8px;}
+  .field-group .hint{margin-top:7px;font-size:0.86rem;color:var(--teal);font-family:'IBM Plex Mono',monospace;}
+  .field-group .input-row{display:flex;align-items:center;border:1px solid var(--line);background:var(--bg);}
+  .field-group .input-row span.prefix{padding:0 12px;color:var(--ink-soft);font-family:'IBM Plex Mono',monospace;}
+  .field-group input[type=number]{
+    flex:1;border:none;background:transparent;padding:14px 12px 14px 0;
+    font-family:'IBM Plex Mono',monospace;font-size:1.12rem;color:var(--ink);outline:none;min-width:0;
+  }
+  .field-group select{
+    width:100%;border:1px solid var(--line);background:var(--bg);color:var(--ink);
+    padding:13px;font-family:'IBM Plex Sans';font-size:1.04rem;
+  }
+  .out-row{display:flex;justify-content:space-between;align-items:baseline;padding:13px 0;border-bottom:1px solid var(--line);}
+  .out-row:last-of-type{border-bottom:none;}
+  .out-row .label{font-size:0.98rem;color:var(--ink-soft);}
+  .out-row .value{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:1.14rem;}
+  .out-row.total{margin-top:12px;padding-top:20px;border-top:2px solid var(--ink);border-bottom:none;}
+  .out-row.total .label{color:var(--ink);font-weight:600;}
+  .out-row.total .value{font-size:1.44rem;color:var(--brass);}
+
+  /* ---- MSR warning ---- */
+  .msr-alert{
+    margin:10px 0 4px;padding:14px 16px;background:var(--rust-bg);border-left:4px solid var(--rust);
+  }
+  .msr-alert .pill.warn{margin:0 0 6px;}
+  .msr-alert p{margin:0;font-size:0.86rem;color:var(--ink-soft);line-height:1.45;}
+  .msr-alert p b{color:var(--ink);}
+  .msr-alert a{color:var(--ink);}
+
+  .fixed-costs{margin-top:32px;}
+  .fixed-costs h3{font-size:1.12rem;font-weight:700;margin-bottom:16px;}
+  .fixed-costs ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  @media (max-width:720px){.fixed-costs ul{grid-template-columns:repeat(2,1fr);}}
+  .fixed-costs li{
+    border:1px solid var(--line);background:var(--surface);padding:15px 16px;
+  }
+  .fixed-costs li .amt{font-family:'IBM Plex Mono',monospace;color:var(--rust);font-weight:600;display:block;margin-bottom:3px;font-size:1.02rem;}
+  .fixed-costs li .desc{font-size:0.9rem;color:var(--ink-soft);}
+
+  /* ---- Working: step-by-step calculations ---- */
+  .field-group .hint.warn{color:var(--rust);font-family:'IBM Plex Sans',system-ui,sans-serif;line-height:1.4;}
+  .working{margin-top:32px;border:1px solid var(--line);border-top:4px solid var(--brass);background:var(--surface);}
+  .working > summary{
+    cursor:pointer;list-style:none;padding:20px 28px;
+    display:flex;align-items:baseline;justify-content:space-between;gap:8px 16px;flex-wrap:wrap;
+  }
+  .working > summary::-webkit-details-marker{display:none;}
+  .working > summary:focus-visible,.sub-details > summary:focus-visible{outline:2px solid var(--brass);outline-offset:-2px;}
+  .working > summary .ttl{font-family:'Archivo',system-ui,sans-serif;font-weight:700;font-size:1.2rem;}
+  .working > summary .sub{font-size:0.88rem;color:var(--ink-soft);flex:1;min-width:220px;}
+  .working > summary .tog{font-family:'IBM Plex Mono',monospace;font-size:0.82rem;color:var(--brass);}
+  .working:not([open]) .when-open{display:none;}
+  .working[open] .when-closed{display:none;}
+  .working-body{padding:0 28px 12px;border-top:1px solid var(--line);}
+  .calc-step{padding:26px 0;border-bottom:1px dashed var(--line);}
+  .calc-step:last-child{border-bottom:none;}
+  .calc-step h4{margin:0 0 12px;font-family:'Archivo',system-ui,sans-serif;font-size:1.08rem;font-weight:700;display:flex;align-items:center;gap:10px;}
+  .calc-step h4 .n{font-family:'IBM Plex Mono',monospace;font-size:0.78rem;background:var(--brass-bg);color:var(--brass);padding:2px 9px;}
+  .calc-step p{margin:0 0 8px;font-size:0.95rem;color:var(--ink-soft);}
+  .calc-step p b{color:var(--ink);}
+  .eq{
+    font-family:'IBM Plex Mono',monospace;font-size:0.86rem;line-height:1.55;
+    background:var(--bg);border:1px solid var(--line);padding:10px 14px;margin:8px 0;
+    overflow-x:auto;white-space:nowrap;
+  }
+  .eq b{color:var(--brass);font-weight:600;}
+  .calc-note{font-size:0.86rem !important;margin-top:10px !important;}
+  .calc-note a{color:var(--ink);text-underline-offset:2px;}
+  .tbl-wrap{overflow-x:auto;}
+  .calc-table{width:100%;border-collapse:collapse;font-size:0.88rem;margin:10px 0 4px;}
+  .calc-table th,.calc-table td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);}
+  .calc-table th{font-family:'Archivo',system-ui,sans-serif;font-weight:700;font-size:0.82rem;border-bottom:2px solid var(--ink);}
+  .calc-table td.num,.calc-table th.num{text-align:right;white-space:nowrap;}
+  .calc-table td.num{font-family:'IBM Plex Mono',monospace;}
+  .calc-table tr.hl td{background:var(--teal-bg);font-weight:600;}
+  .calc-table tr.tot td{border-top:2px solid var(--ink);font-weight:700;border-bottom:none;}
+  .sub-details{margin-top:14px;border:1px solid var(--line);}
+  .sub-details > summary{cursor:pointer;padding:11px 14px;font-size:0.9rem;font-weight:600;background:var(--bg);}
+  .sub-details > div{padding:4px 14px 12px;}
+  .pill{display:inline-block;padding:3px 10px;font-family:'IBM Plex Mono',monospace;font-size:0.8rem;font-weight:600;margin:4px 0 10px;}
+  .pill.ok{background:var(--teal-bg);color:var(--teal);}
+  .pill.warn{background:var(--rust-bg);color:var(--rust);}
+  @media (max-width:640px){
+    .working > summary{padding:18px 16px;}
+    .working-body{padding:0 16px 8px;}
+  }
+
+  /* ---- CPF vs cash split ---- */
+  .field-group .hint.note{color:var(--ink-soft);font-family:'IBM Plex Sans',system-ui,sans-serif;line-height:1.4;}
+  .out-split{margin-top:26px;padding-top:18px;border-top:2px solid var(--ink);}
+  .out-split .out-title{font-family:'Archivo',system-ui,sans-serif;font-weight:700;font-size:1.02rem;margin-bottom:4px;}
+  .out-row.cash .label{color:var(--ink);font-weight:600;}
+  .out-row.cash .value{font-size:1.3rem;}
+  .out-foot{margin:14px 0 0;font-size:0.84rem;color:var(--ink-soft);}
+
+  /* ---- Read-only OA inflow + output sub-title ---- */
+  .readout{border:1px dashed var(--line);background:var(--slate-bg);padding:2px 14px;}
+  .readout .ro-row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 0;}
+  .readout .ro-row + .ro-row{border-top:1px solid var(--line);}
+  .readout .ro-lbl{font-size:0.92rem;color:var(--ink-soft);}
+  .readout output{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:1.08rem;color:var(--ink);}
+  .out-split .out-subtitle{font-family:'Archivo',system-ui,sans-serif;font-weight:700;font-size:0.98rem;margin:18px 0 0;}
+
+  /* ---- Income look-back note ---- */
+  .income-note{margin-top:18px;border:1px solid var(--line);border-left:4px solid var(--brass);background:var(--bg);padding:16px 18px;}
+  .income-note h5{margin:0 0 8px;font-family:'Archivo',system-ui,sans-serif;font-size:1rem;font-weight:700;}
+  .income-note p{margin:0 0 9px;font-size:0.92rem;color:var(--ink-soft);}
+  .income-note p b{color:var(--ink);}
+  .income-note a{color:var(--ink);text-underline-offset:2px;}
+  .income-note .src{font-size:0.84rem;margin:12px 0 0;}
+
+  footer{padding:32px 0 56px;color:var(--ink-soft);font-size:0.82rem;}
+  footer a{color:var(--ink-soft);}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="kicker-line"><span class="dot"></span><span>Public housing, on your terms</span></div>
+    <h1>Modes of sale, and what your budget actually holds.</h1>
+    <p>Four ways to get a flat, one financing decision, and a live number for what it costs you.</p>
+  </header>
+
+  <section id="modes">
+    <div class="section-head">
+      <h2>Modes of sale</h2>
+      <span class="tally">04 paths</span>
+    </div>
+    <div class="modes-grid">
+
+      <div class="mode-card" style="--accent:var(--teal);--accent-bg:var(--teal-bg);">
+        <div class="icon-badge">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 10h16v10a1 1 0 01-1 1H5a1 1 0 01-1-1V10z"/><path d="M2 10l10-6 10 6"/><path d="M12 4v10"/><path d="M9 14l3-3 3 3"/></svg>
+        </div>
+        <h3>BTO</h3>
+        <div class="field"><b>What it is</b><p>New flats built to order; a ballot decides your queue number.</p></div>
+        <div class="field"><b>Tells you</b><p>Your ballot chances by household status; whether you're invited to book.</p></div>
+        <div class="field"><b>You decide</b><p>Town and flat type — locked in per exercise.</p></div>
+      </div>
+
+      <div class="mode-card" style="--accent:var(--brass);--accent-bg:var(--brass-bg);">
+        <div class="icon-badge">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="13" width="16" height="7" rx="0.5"/><rect x="6" y="8" width="12" height="5" rx="0.5"/><rect x="8" y="4" width="8" height="4" rx="0.5"/></svg>
+        </div>
+        <h3>SBF</h3>
+        <div class="field"><b>What it is</b><p>Leftover flats from past BTOs, SERS, and repurchases.</p></div>
+        <div class="field"><b>Tells you</b><p>What's left, and its completion stage — often near-ready.</p></div>
+        <div class="field"><b>You decide</b><p>Worth the odds, or is a low-demand BTO the better bet.</p></div>
+      </div>
+
+      <div class="mode-card" style="--accent:var(--rust);--accent-bg:var(--rust-bg);">
+        <div class="icon-badge">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+        </div>
+        <h3>Open Booking</h3>
+        <div class="field"><b>What it is</b><p>Unsold SBF flats, booked first-come-first-served.</p></div>
+        <div class="field"><b>Tells you</b><p>A live queue number — no ballot, no waiting.</p></div>
+        <div class="field"><b>You decide</b><p>Whether you can book tomorrow, since there's no runway.</p></div>
+      </div>
+
+      <div class="mode-card" style="--accent:var(--slate);--accent-bg:var(--slate-bg);">
+        <div class="icon-badge">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12l4-4 3 3 6-6 5 5"/><path d="M15 5h6v6"/><path d="M4 20h16"/></svg>
+        </div>
+        <h3>Resale</h3>
+        <div class="field"><b>What it is</b><p>Bought directly from an existing owner, via an OTP.</p></div>
+        <div class="field"><b>Tells you</b><p>Asking price, and whether cash-over-valuation applies.</p></div>
+        <div class="field"><b>You decide</b><p>What to offer, and whether to exercise the option.</p></div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="classification">
+    <div class="section-head">
+      <h2>Standard, Plus, Prime</h2>
+      <span class="tally">since Oct 2024</span>
+    </div>
+
+    <table class="class-table">
+      <tr><th></th><th>Standard</th><th>Plus</th><th>Prime</th></tr>
+      <tr><td class="row-label">Subsidy</td><td class="standard">Market discount</td><td class="plus">Discount + extra</td><td class="prime">Discount + most</td></tr>
+      <tr><td class="row-label">Subsidy recovery on resale</td><td class="standard">No</td><td class="plus">Yes (less)</td><td class="prime">Yes (most)</td></tr>
+      <tr><td class="row-label">MOP</td><td class="standard">5 years</td><td class="plus">10 years</td><td class="prime">10 years</td></tr>
+      <tr><td class="row-label">Rent out whole flat</td><td class="standard">Allowed, after MOP</td><td class="plus">Not allowed</td><td class="prime">Not allowed</td></tr>
+      <tr><td class="row-label">Rent out spare rooms</td><td class="standard">Allowed</td><td class="plus">Allowed</td><td class="prime">Allowed</td></tr>
+      <tr><td class="row-label">Buy private property, after MOP</td><td class="standard">Allowed</td><td class="plus">Allowed</td><td class="prime">Allowed</td></tr>
+    </table>
+
+    <div class="notes-row">
+      <div class="note-card"><b>FPPS first priority</b> — the front-of-queue boost for 4-room-or-smaller only applies in <b>Standard</b>. Plus and Prime still get the 40% quota, just not first pick within it.</div>
+      <div class="note-card"><b>FCS (Proximity) quota</b> — 30% for first-timers in Standard and Plus, dropping to <b>20% in Prime</b>. Plus costs you nothing here; Prime does.</div>
+    </div>
+  </section>
+
+  <section id="timeline">
+    <div class="section-head">
+      <h2>Exercise timeline</h2>
+      <span class="tally">through 2029</span>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-track">
+        <div class="tl-node" style="--accent:var(--brass);">
+          <div class="tl-dot"></div>
+          <div class="status">CONFIRMED</div>
+          <h4>Nov 2026</h4>
+          <p>BTO (~7,960) + SBF (~3,000). Bedok, Geylang, Sembawang, Tengah, Toa Payoh, Yishun.</p>
+        </div>
+        <div class="tl-node" style="--accent:var(--brass);">
+          <div class="tl-dot"></div>
+          <div class="status">CONFIRMED</div>
+          <h4>Feb 2027</h4>
+          <p>Set to happen — towns not yet published.</p>
+        </div>
+        <div class="tl-node dashed" style="--accent:var(--slate);">
+          <div class="tl-dot"></div>
+          <div class="status">PROJECTED</div>
+          <h4>2027–2029</h4>
+          <p>Unconfirmed — historical rhythm suggests ~Feb / Jun / Oct each year. Watch eAlerts.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="supply-strip">
+      <div class="supply-card"><span class="num">~19,600</span><span class="lbl">2026 planned flats</span></div>
+      <div class="supply-card"><span class="num">55,000</span><span class="lbl">2025–2027 target (3-yr)</span></div>
+      <div class="supply-card"><span class="num">~19,500</span><span class="lbl">2028 planned flats</span></div>
+      <div class="supply-card"><span class="num">—</span><span class="lbl">2029, not yet published</span></div>
+    </div>
+  </section>
+
+  <section id="staying-updated">
+    <div class="section-head">
+      <h2>Staying on top of it</h2>
+      <span class="tally">no manual checking</span>
+    </div>
+    <div class="resource-grid">
+      <div class="resource-card">
+        <h4>HDB eAlerts</h4>
+        <p>Subscribe once — you're notified the moment a new BTO, SBF, or Open Booking round is announced, before you'd ever spot it yourself.</p>
+      </div>
+      <div class="resource-card">
+        <h4>Live application rates</h4>
+        <p>Once an exercise opens, HDB's Flat Portal shows real-time subscription rates per town/flat-type — useful for spotting a low-demand BTO worth a punt.</p>
+      </div>
+      <div class="resource-card">
+        <h4>My Flat Dashboard</h4>
+        <p>Once you've applied for anything, this is where your HFE status, ballot result, and booking appointment all surface — check it, don't wait for SMS.</p>
+      </div>
+      <div class="resource-card">
+        <h4>HDB Pulse (News)</h4>
+        <p>Policy shifts — like income ceiling changes or new priority schemes — get published here first, often before the coverage catches up.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="budget">
+    <div class="section-head">
+      <h2>Budget</h2>
+      <span class="tally">HDB loan, assumed</span>
+    </div>
+
+    <div class="callout">
+      Everything below assumes the <b>HDB Concessionary Loan</b> — 80% max LTV, rate pegged 0.1% above the CPF OA rate, no lock-in. Confirm the live rate on HDB's site before relying on it.
+    </div>
+
+    <div class="preflight">
+      <div class="step">
+        <span class="tag">STEP 1</span>
+        <h4>Check Preliminary HFE</h4>
+        <p>A no-commitment read on your CPF grant and loan quantum — run it any time to see where you stand.</p>
+      </div>
+      <div class="step">
+        <span class="tag">STEP 2</span>
+        <h4>Apply for the HFE Letter</h4>
+        <p>The real letter, valid 9 months. Complete within 30 days of Step 1.</p>
+      </div>
+    </div>
+
+    <div class="estimator">
+      <div class="inputs">
+        <div class="field-group">
+          <label for="price">Flat price (evaluated / asking)</label>
+          <div class="input-row"><span class="prefix">S$</span><input type="number" id="price" value="450000" min="0" step="1000"></div>
+        </div>
+        <div class="field-group">
+          <label for="income">Combined monthly household income</label>
+          <div class="input-row"><span class="prefix">S$</span><input type="number" id="income" value="4200" min="0" step="100"></div>
+          <div class="hint" id="ehg-hint">→ EHG: —</div>
+          <div class="hint note">HDB uses income averaged over the months you worked in a past 12-month window, so the figure can sit well below what you will earn later, for example as a recent graduate. See step 2 of the working.</div>
+        </div>
+        <div class="field-group">
+          <label id="oa-in-label">CPF going into your OA each month (calculated)</label>
+          <div class="readout" role="group" aria-labelledby="oa-in-label">
+            <div class="ro-row"><span class="ro-lbl">Years 1 to 10</span><output id="oa-in-early" for="income">—</output></div>
+            <div class="ro-row"><span class="ro-lbl">Year 11 onwards</span><output id="oa-in-late" for="income">—</output></div>
+          </div>
+          <div class="hint note">Worked out from the household income above: 37% goes to CPF, and the OA gets 62.17% of that, then 56.77%.</div>
+        </div>
+        <div class="field-group">
+          <label for="tenure">Loan tenure</label>
+          <select id="tenure">
+            <option value="20">20 years</option>
+            <option value="25" selected>25 years</option>
+            <option value="30">30 years</option>
+          </select>
+          <div class="hint warn" id="tenure-hint" hidden></div>
+        </div>
+        <div class="field-group">
+          <label for="oa-balance">CPF Ordinary Account balance (both of you combined)</label>
+          <div class="input-row"><span class="prefix">S$</span><input type="number" id="oa-balance" value="0" min="0" step="1000"></div>
+          <div class="hint note">Only the OA counts, not your Special or MediSave accounts.</div>
+        </div>
+      </div>
+      <div class="outputs">
+        <div class="out-row"><span class="label">HDB loan (80% LTV)</span><span class="value mono" id="out-loan">—</span></div>
+        <div class="out-row"><span class="label">Down payment (20%)</span><span class="value mono" id="out-down">—</span></div>
+        <div class="out-row"><span class="label">EHG applied to down payment</span><span class="value mono" id="out-grant">—</span></div>
+        <div class="out-row"><span class="label">Buyer's Stamp Duty</span><span class="value mono" id="out-bsd">—</span></div>
+        <div class="out-row"><span class="label">Est. monthly instalment</span><span class="value mono" id="out-monthly">—</span></div>
+        <div class="msr-alert" id="msr-alert" hidden>
+          <span class="pill warn">ABOVE HDB'S 30% MSR CAP</span>
+          <p id="msr-alert-text"></p>
+        </div>
+        <div class="out-row total"><span class="label">Cash/CPF needed at purchase</span><span class="value mono" id="out-total">—</span></div>
+        <div class="out-split">
+          <div class="out-title">How much of that is your cash</div>
+          <div class="out-row"><span class="label">Paid from your OA at purchase</span><span class="value mono" id="out-oa-used">—</span></div>
+          <div class="out-row cash"><span class="label">Cash at purchase</span><span class="value mono" id="out-cash-purchase">—</span></div>
+          <div class="out-subtitle">Monthly cash top-up</div>
+          <div class="out-row cash"><span class="label">Years 1 to 10</span><span class="value mono" id="out-cash-early">—</span></div>
+          <div class="out-row cash"><span class="label">Year 11 onwards</span><span class="value mono" id="out-cash-late">—</span></div>
+        </div>
+        <p class="out-foot">Assumes your CPF is 37% of household income (20% you, 17% employer), with the OA getting 62.17% of it for the first 10 years and 56.77% after. Cash at purchase leaves out the option fee, which is always cash, and the other costs listed below.</p>
+      </div>
+    </div>
+
+    <details class="working" id="working" open>
+      <summary>
+        <span class="ttl"><span class="when-closed">Show the working</span><span class="when-open">Hide the working</span></span>
+        <span class="sub">Every figure above, step by step, with sources. Updates as you type.</span>
+        <span class="tog"><span class="when-closed">open ▾</span><span class="when-open">close ▴</span></span>
+      </summary>
+      <div class="working-body">
+
+        <div class="calc-step">
+          <h4><span class="n">1</span>Loan and down payment</h4>
+          <div id="w-loan"></div>
+        </div>
+
+        <div class="calc-step">
+          <h4><span class="n">2</span>Grant lookup (EHG)</h4>
+          <div id="w-ehg"></div>
+          <details class="sub-details" open>
+            <summary>HDB's EHG table, for households where both applicants are first-timers</summary>
+            <div id="w-ehg-table"></div>
+          </details>
+          <div class="income-note">
+            <h5>Worth knowing: HDB looks backwards</h5>
+            <p>The income HDB uses is your gross monthly household income, <b>averaged over the months worked in a 12-month window that ends 2 months before the month you apply for the HFE letter</b>. Everyone listed in the application is included. HDB counts gross pay including your own CPF deduction, and leaves out employer CPF contributions and bonuses.</p>
+            <p>That makes it a look-back, not a forecast. If you have only just started work, one of you is still studying, or a second income only begins after you apply, the figure HDB uses can be well below what you will earn later.</p>
+            <p><b>It cuts both ways.</b> The EHG is means-tested, so a lower assessed income lands in a higher grant band. But the same income also limits the loan HDB will offer, through the 30% income rule in step 7.</p>
+            <p><b>Two rules limit this.</b> The EHG needs you or your spouse to have worked continuously for the 12 months before the HFE application. A couple who were both full-time students or National Servicemen in that period cannot get the EHG yet, so HDB lets them apply for a flat first and defer the income assessment until they are in continuous employment. A couple where one partner has already worked for those 12 months can qualify without deferring. (Minister for National Development, Parliament, 2 Jul 2024.)</p>
+            <p class="src">Sources: <a href="https://ask.gov.sg/hdb/questions/clxsp9q6x0029df0en2tm8ch3" target="_blank" rel="noopener">HDB on how it works out average household income</a>, <a href="https://www.hdb.gov.sg/cs/infoweb/hdb-flat-portal/HFE/get-help/submission-of-an-hfe-letter-application" target="_blank" rel="noopener">HDB HFE letter FAQ</a>, <a href="https://www.cpf.gov.sg/member/infohub/educational-resources/a-guide-to-enhanced-cpf-housing-and-proximity-grant" target="_blank" rel="noopener">CPF Board EHG guide</a>, <a href="https://www.mnd.gov.sg/newsroom/parliament-matters/q-as/view/written-answer-by-ministry-of-national-development-on-applications-for-hdb-hfe-letter-under-deferred-income-assessment-scheme-from-couples-with-student-and-working-status" target="_blank" rel="noopener">MND written answer on deferred income assessment</a>.</p>
+          </div>
+        </div>
+
+        <div class="calc-step">
+          <h4><span class="n">3</span>Buyer's Stamp Duty</h4>
+          <div id="w-bsd"></div>
+        </div>
+
+        <div class="calc-step">
+          <h4><span class="n">4</span>Cash / CPF needed at purchase</h4>
+          <div id="w-cash"></div>
+        </div>
+
+        <div class="calc-step">
+          <h4><span class="n">5</span>Monthly instalment</h4>
+          <div id="w-pay"></div>
+          <details class="sub-details">
+            <summary>Year-by-year: interest, principal and remaining balance</summary>
+            <div id="w-schedule"></div>
+          </details>
+        </div>
+
+        <div class="calc-step">
+          <h4><span class="n">6</span>Loan tenure: 20 vs 25 vs 30 years</h4>
+          <div id="w-tenure"></div>
+        </div>
+
+        <div class="calc-step">
+          <h4><span class="n">7</span>Can you borrow this much? The 30% income rule</h4>
+          <div id="w-msr"></div>
+        </div>
+
+        <div class="calc-step">
+          <h4><span class="n">8</span>Your CPF Ordinary Account vs cash</h4>
+          <div id="w-cpf"></div>
+          <div class="income-note">
+            <h5>How CPF splits between two owners</h5>
+            <p>There's no fixed order, and it isn't based on whose account is bigger. Each co-owner <b>declares</b> what share of the instalment comes from their own CPF OA when the deduction is set up — commonly equal, but it doesn't have to be. The one hard rule: the <b>combined</b> deduction across all owners can't exceed the instalment actually due.</p>
+            <p>That declared share also sets each owner's required Home Protection Scheme cover, and either of you can ask HDB to change the split later.</p>
+            <p class="src">Sources: <a href="https://www.cpf.gov.sg/service/article/what-is-the-maximum-monthly-instalment-amount-that-can-be-used-for-my-property" target="_blank" rel="noopener">CPF Board on the combined instalment cap</a>, <a href="https://www.cpf.gov.sg/service/article/what-share-of-the-home-protection-scheme-cover-should-i-apply-for" target="_blank" rel="noopener">CPF Board on the declared HPS/instalment share</a>, <a href="https://www.hdb.gov.sg/managing-my-home/finances/loan-matters/payments" target="_blank" rel="noopener">HDB on varying your CPF contribution rate</a>.</p>
+          </div>
+        </div>
+
+      </div>
+    </details>
+
+    <div class="fixed-costs">
+      <h3>Other relatively fixed costs</h3>
+      <ul>
+        <li><span class="amt">S$500–2,000</span><span class="desc">Option fee, due at booking</span></li>
+        <li><span class="amt">~S$2,500</span><span class="desc">Legal / conveyancing fee</span></li>
+        <li><span class="amt">~S$7.50/yr</span><span class="desc">Fire insurance (if HDB loan)</span></li>
+        <li><span class="amt">S$1,000+</span><span class="desc">Moving &amp; basic furnishing buffer</span></li>
+      </ul>
+      <p style="margin-top:14px;font-size:0.85rem;color:var(--ink-soft);">EHG figures assume <b style="color:var(--ink);">both of you are first-timers</b>, per HDB's table effective 20 Aug 2024. Excludes the Family Grant (resale-only) and Proximity Housing Grant (near-parents), which stack separately if you qualify.</p>
+    </div>
+  </section>
+
+  <section id="price-history">
+    <div class="section-head">
+      <h2>What past launches actually cost</h2>
+      <span class="tally">3-room &amp; 4-room, sorted by price</span>
+    </div>
+    <div class="price-table-wrap">
+      <table class="price-table">
+        <tr><th>Town</th><th>Project</th><th>Class</th><th>Type</th><th>Exercise</th><th>Price range</th></tr>
+        <tr><td>Sembawang</td><td>Sembawang Portico</td><td class="tag standard">Standard</td><td>3-room</td><td>Jun 2026</td><td class="price">$250,000–$344,000</td></tr>
+        <tr><td>Sembawang</td><td>Sembawang Brook</td><td class="tag standard">Standard</td><td>3-room</td><td>Jun 2026</td><td class="price">$257,000–$333,000</td></tr>
+        <tr><td>Woodlands</td><td>Woodgrove Acres</td><td class="tag standard">Standard</td><td>3-room</td><td>Jun 2026</td><td class="price">$260,000–$325,000</td></tr>
+        <tr><td>Sembawang</td><td>Sembawang Deck</td><td class="tag standard">Standard</td><td>3-room</td><td>Feb 2026</td><td class="price">$261,000–$343,000</td></tr>
+        <tr><td>Sembawang</td><td>Sembawang Brook</td><td class="tag standard">Standard</td><td>4-room</td><td>Jun 2026</td><td class="price">$302,000–$428,000</td></tr>
+        <tr><td>Sembawang</td><td>Sembawang Voyage</td><td class="tag standard">Standard</td><td>4-room</td><td>Feb 2026</td><td class="price">$304,000–$422,000</td></tr>
+        <tr><td>Sembawang</td><td>Sembawang Portico</td><td class="tag standard">Standard</td><td>4-room</td><td>Jun 2026</td><td class="price">$320,000–$437,000</td></tr>
+        <tr><td>Sembawang</td><td>Sembawang Deck</td><td class="tag standard">Standard</td><td>4-room</td><td>Feb 2026</td><td class="price">$338,000–$426,000</td></tr>
+        <tr><td>Woodlands</td><td>Woodgrove Acres</td><td class="tag standard">Standard</td><td>4-room</td><td>Jun 2026</td><td class="price">$353,000–$437,000</td></tr>
+        <tr><td>Toa Payoh</td><td>Kim Keat Crest</td><td class="tag plus">Plus</td><td>3-room</td><td>Feb 2026</td><td class="price">$356,000–$450,000</td></tr>
+        <tr><td>Tampines</td><td>Tampines Bliss</td><td class="tag standard">Standard</td><td>3-room</td><td>Feb 2026</td><td class="price">$363,000–$444,000</td></tr>
+        <tr><td>Ang Mo Kio</td><td>Kebun Baru Ridge</td><td class="tag plus">Plus</td><td>3-room</td><td>Jun 2026</td><td class="price">$380,000–$492,000</td></tr>
+        <tr><td>Bukit Merah</td><td>Redhill Peaks</td><td class="tag prime">Prime</td><td>3-room</td><td>Feb 2026</td><td class="price">$385,000–$537,000</td></tr>
+        <tr><td>Bukit Merah</td><td>Berlayar Rise</td><td class="tag prime">Prime</td><td>3-room</td><td>Jun 2026</td><td class="price">$435,000–$591,000</td></tr>
+        <tr><td>Toa Payoh</td><td>Kim Keat Crest</td><td class="tag plus">Plus</td><td>4-room</td><td>Feb 2026</td><td class="price">$455,000–$624,000</td></tr>
+        <tr><td>Tampines</td><td>Tampines Nova</td><td class="tag plus">Plus</td><td>4-room</td><td>Feb 2026</td><td class="price">$459,000–$602,000</td></tr>
+        <tr><td>Tampines</td><td>Tampines Bliss</td><td class="tag standard">Standard</td><td>4-room</td><td>Feb 2026</td><td class="price">$481,000–$600,000</td></tr>
+        <tr><td>Bishan</td><td>Lakeview Cascadia</td><td class="tag prime">Prime</td><td>4-room</td><td>Jun 2026</td><td class="price">$534,000–$742,000</td></tr>
+        <tr><td>Ang Mo Kio</td><td>Kebun Baru Ridge</td><td class="tag plus">Plus</td><td>4-room</td><td>Jun 2026</td><td class="price">$543,000–$693,000</td></tr>
+        <tr><td>Ang Mo Kio</td><td>Kebun Baru Breeze</td><td class="tag plus">Plus</td><td>4-room</td><td>Jun 2026</td><td class="price">$547,000–$746,000</td></tr>
+        <tr><td>Bukit Merah</td><td>Redhill Peaks</td><td class="tag prime">Prime</td><td>4-room</td><td>Feb 2026</td><td class="price">$563,000–$783,000</td></tr>
+        <tr><td>Bukit Merah</td><td>Berlayar Rise</td><td class="tag prime">Prime</td><td>4-room</td><td>Jun 2026</td><td class="price">$592,000–$810,000</td></tr>
+      </table>
+    </div>
+    <p style="margin-top:14px;font-size:0.85rem;color:var(--ink-soft);">Excludes grants. Sorted by the lower end of each price range. From HDB's official Annex A pricing tables for the Feb 2026 and Jun 2026 BTO exercises — the only two exercises with published prices so far.</p>
+  </section>
+
+  <footer>
+    Figures are indicative, not advice — rates, grant quantums, and BSD tiers are set by HDB/IRAS and change periodically. Confirm current numbers on HDB and IRAS before acting.
+  </footer>
+</div>
+
+<script>
+// ---- Assumptions (each is explained, with its source, in "Show the working") ----
+const LTV = 0.8;              // HDB housing loan: maximum loan-to-value
+const HDB_RATE = 2.6;         // HDB concessionary rate, % a year (CPF OA rate + 0.1%)
+const ASSESS_RATE = 3.0;      // interest-rate floor HDB uses when assessing loan eligibility, % a year
+const MSR_CAP = 0.30;         // monthly instalment cap as a share of gross monthly household income
+const HDB_MAX_TENURE = 25;    // years, HDB housing loan
+
+// Share of total CPF contributions that is allocated to the Ordinary Account, by age (CPF Board, from 1 Jan 2026)
+const OA_SHARES = [['35 and below',0.6217],['36 to 45',0.5677],['46 to 50',0.5136],['51 to 55',0.4055]];
+
+// Assumptions for the monthly OA inflow, worked out from household income
+const CPF_TOTAL_RATE = 0.37;   // 20% employee + 17% employer, members 55 and below
+const OA_SHARE_EARLY = 0.6217; // OA share of contributions, first 10 years of the loan
+const OA_SHARE_LATE  = 0.5677; // OA share of contributions, from year 11
+const EARLY_YEARS = 10;
+
+// Buyer's Stamp Duty, residential, from 15 Feb 2023 (IRAS)
+const BSD_TIERS = [[180000,0.01],[180000,0.02],[640000,0.03],[500000,0.04],[1500000,0.05],[Infinity,0.06]];
+const BSD_LABELS = ['First $180,000','Next $180,000','Next $640,000','Next $500,000','Next $1,500,000','Remainder'];
+
+// Enhanced CPF Housing Grant, first-timer (both) households: HDB table, from 20 Aug 2024
+// [top of income band, grant]
+const EHG_TIERS = [
+  [1500,120000],[2000,110000],[2500,105000],[3000,95000],[3500,90000],
+  [4000,80000],[4500,70000],[5000,65000],[5500,55000],[6000,50000],
+  [6500,40000],[7000,30000],[7500,25000],[8000,20000],[8500,10000],[9000,5000]
+];
+
+const $ = id => document.getElementById(id);
+
+function fmt(n){
+  return new Intl.NumberFormat('en-SG', {style:'currency', currency:'SGD', maximumFractionDigits:0}).format(Math.max(0,Math.round(n)));
+}
+function fmt2(n){
+  return new Intl.NumberFormat('en-SG', {style:'currency', currency:'SGD', minimumFractionDigits:2, maximumFractionDigits:2}).format(Math.max(0,n));
+}
+
+function bsdBreakdown(price){
+  let remaining = Math.max(price, 0);
+  return BSD_TIERS.map(([amt, rate]) => {
+    const portion = Math.max(Math.min(remaining, amt), 0);
+    remaining -= portion;
+    return {portion, rate, duty: portion * rate};
+  });
+}
+function computeBSD(price){
+  return bsdBreakdown(price).reduce((sum, r) => sum + r.duty, 0);
+}
+
+function ehgBand(income){
+  let prev = 0;
+  for (let i = 0; i < EHG_TIERS.length; i++){
+    const [maxInc, amt] = EHG_TIERS[i];
+    if (income <= maxInc) return {index:i, low: i === 0 ? 0 : prev + 1, high:maxInc, amount:amt};
+    prev = maxInc;
+  }
+  return null;
+}
+function computeEHG(income){
+  const band = ehgBand(income);
+  return band ? band.amount : 0;
+}
+
+function monthlyRepayment(loan, annualRatePct, years){
+  const r = (annualRatePct/100)/12, n = years*12;
+  if (r === 0) return loan/n;
+  return loan * r * Math.pow(1+r, n) / (Math.pow(1+r, n) - 1);
+}
+// Largest loan whose instalment equals `installment` at the given rate and tenure
+function maxLoanFor(installment, annualRatePct, years){
+  const r = (annualRatePct/100)/12, n = years*12;
+  if (r === 0) return installment*n;
+  const f = Math.pow(1+r, n);
+  return installment * (f - 1) / (r * f);
+}
+function yearlySchedule(loan, annualRatePct, years){
+  const r = (annualRatePct/100)/12, n = years*12;
+  const m = monthlyRepayment(loan, annualRatePct, years);
+  let bal = loan, yi = 0, yp = 0;
+  const rows = [];
+  for (let k = 1; k <= n; k++){
+    const interest = bal * r, principal = m - interest;
+    bal -= principal; yi += interest; yp += principal;
+    if (k % 12 === 0){
+      rows.push({year:k/12, interest:yi, principal:yp, balance:Math.max(bal,0)});
+      yi = 0; yp = 0;
+    }
+  }
+  return rows;
+}
+
+// ---- Rendering the working ----
+function eq(html){ return '<div class="eq">' + html + '</div>'; }
+function strong(s){ return '<b>' + s + '</b>'; }
+function share(x, base){ return base > 0 ? (x/base*100).toFixed(1) + '%' : '—'; }
+const LINK = {
+  ehg: '<a href="https://www.hdb.gov.sg/-/media/doc/EAPG-CSC/EHG-amount-Families.pdf?sc_lang=en&amp;hash=704567035857BD13D5D3238F0006076C" target="_blank" rel="noopener">HDB EHG amount table</a>',
+  cpf: '<a href="https://www.cpf.gov.sg/member/infohub/educational-resources/a-guide-to-enhanced-cpf-housing-and-proximity-grant" target="_blank" rel="noopener">CPF Board EHG guide</a>',
+  iras: '<a href="https://iras.gov.sg/quick-links/tax-rates/stamp-duty" target="_blank" rel="noopener">IRAS stamp duty rates</a>',
+  rate: '<a href="https://www.cpf.gov.sg/member/infohub/news/news-releases/cpf-interest-rates-from-1-july-to-30-september-2026" target="_blank" rel="noopener">CPF Board / HDB interest-rate release</a>',
+  mnd: '<a href="https://www.mnd.gov.sg/newsroom/speeches/view/written-answer-by-ministry-of-national-development-on-hdb-s-considerations-for-housing-loan-applications-and-loan-quantums" target="_blank" rel="noopener">MND written answer on HDB loan rules</a>',
+  period: '<a href="https://dollarsandsense.sg/complete-guide-taking-concessionary-hdb-housing-loan/" target="_blank" rel="noopener">Dollars &amp; Sense guide to the HDB loan</a>',
+  bank: '<a href="https://endowus.com/insights/hdb-loans-rising-rates" target="_blank" rel="noopener">Endowus comparison of HDB and bank loans</a>',
+  alloc: '<a href="https://www.cpf.gov.sg/content/dam/web/employer/employer-obligations/documents/CPFAllocationRatesfromJanuary2026.pdf" target="_blank" rel="noopener">CPF Board allocation rates</a>',
+  oause: '<a href="https://www.cpf.gov.sg/service/article/can-i-use-my-cpf-savings-for-the-down-payment-of-my-property" target="_blank" rel="noopener">CPF Board: using CPF for the down payment</a>',
+  hdbfin: '<a href="https://www.hdb.gov.sg/cs/infoweb/residential/buying-a-flat/buying-procedure-for-new-flats/timeline/plan-your-finances" target="_blank" rel="noopener">HDB: plan your finances</a>'
+};
+
+function renderWorking(s){
+  const {price, income, years, loan, downPayment, grant, grantApplied, bsd, monthly, cashNeeded, oaBalance, oaUsed, cashPurchase, oaLeft, cpfTotal, oaEarly, oaLate, topEarly, topLate, totalTop} = s;
+  const ids = ['w-loan','w-ehg','w-ehg-table','w-bsd','w-cash','w-pay','w-schedule','w-tenure','w-msr','w-cpf'];
+
+  if (!(price > 0)){
+    ids.forEach(id => { $(id).innerHTML = ''; });
+    $('w-loan').innerHTML = '<p class="calc-note">Enter a flat price above to see the working.</p>';
+    return;
+  }
+
+  // 1. Loan and down payment
+  $('w-loan').innerHTML =
+    eq(`Loan = price × ${Math.round(LTV*100)}% = ${fmt(price)} × ${LTV.toFixed(2)} = ${strong(fmt(loan))}`) +
+    eq(`Down payment = price × ${Math.round((1-LTV)*100)}% = ${fmt(price)} × ${(1-LTV).toFixed(2)} = ${strong(fmt(downPayment))}`) +
+    `<p class="calc-note">80% is the highest loan-to-value ratio HDB applies when sizing its housing loan. The other 20% comes from CPF, cash or grants. Source: ${LINK.mnd}.</p>`;
+
+  // 2. EHG lookup
+  const band = ehgBand(income);
+  const ceiling = EHG_TIERS[EHG_TIERS.length - 1][0];
+  const bandLine = band
+    ? `Your household income of ${fmt(income)} falls in the ${fmt(band.low)} to ${fmt(band.high)} band, so the EHG is ${strong(fmt(band.amount))}.`
+    : `Your household income of ${fmt(income)} is above the ${fmt(ceiling)} ceiling, so there is no EHG.`;
+  $('w-ehg').innerHTML =
+    `<p>${bandLine}</p>` +
+    eq(`Applied to down payment = min(EHG, down payment) = min(${fmt(grant)}, ${fmt(downPayment)}) = ${strong(fmt(grantApplied))}`) +
+    eq(`Down payment still to fund = ${fmt(downPayment)} − ${fmt(grantApplied)} = ${strong(fmt(downPayment - grantApplied))}`) +
+    `<p class="calc-note">"Income" here is the gross monthly income of everyone listed in the application, averaged over the months worked in a 12-month window that ends 2 months before the month you apply for the HFE letter (see the note below). The table assumes both applicants are first-timers; with one second-timer, the ceiling halves to ${fmt(ceiling/2)} and the amounts are lower. This page treats the grant as reducing your down payment; your HFE letter confirms the real amount. Sources: ${LINK.ehg}, ${LINK.cpf}.</p>`;
+
+  let prev = 0, ehgRows = '';
+  EHG_TIERS.forEach(([maxInc, amt], i) => {
+    const low = i === 0 ? 0 : prev + 1;
+    ehgRows += `<tr class="${band && band.index === i ? 'hl' : ''}"><td>${fmt(low)} to ${fmt(maxInc)}</td><td class="num">${fmt(amt)}</td></tr>`;
+    prev = maxInc;
+  });
+  ehgRows += `<tr class="${band ? '' : 'hl'}"><td>Above ${fmt(ceiling)}</td><td class="num">Not eligible</td></tr>`;
+  $('w-ehg-table').innerHTML =
+    `<div class="tbl-wrap"><table class="calc-table"><tr><th>Average monthly household income</th><th class="num">EHG</th></tr>${ehgRows}</table></div>`;
+
+  // 3. Buyer's Stamp Duty
+  const bsdRows = bsdBreakdown(price).map((r, i) =>
+    `<tr class="${r.portion > 0 ? 'hl' : ''}"><td>${BSD_LABELS[i]}</td><td class="num">${fmt(r.portion)}</td><td class="num">${(r.rate*100).toFixed(0)}%</td><td class="num">${fmt(r.duty)}</td></tr>`
+  ).join('');
+  $('w-bsd').innerHTML =
+    `<p>Stamp duty is charged in slices: each slice of the price pays its own rate.</p>` +
+    `<div class="tbl-wrap"><table class="calc-table"><tr><th>Slice of price</th><th class="num">Amount in slice</th><th class="num">Rate</th><th class="num">Duty</th></tr>${bsdRows}<tr class="tot"><td colspan="3">Buyer's Stamp Duty</td><td class="num">${fmt(bsd)}</td></tr></table></div>` +
+    `<p class="calc-note">Residential rates for purchases on or after 15 Feb 2023. IRAS applies them to the higher of the purchase price and market value, and rounds down to the whole dollar; this page uses the price you enter. Source: ${LINK.iras}.</p>`;
+
+  // 4. Cash / CPF needed at purchase
+  $('w-cash').innerHTML =
+    eq(`Cash/CPF needed = (down payment − grant applied) + BSD`) +
+    eq(`= (${fmt(downPayment)} − ${fmt(grantApplied)}) + ${fmt(bsd)} = ${strong(fmt(cashNeeded))}`) +
+    `<p class="calc-note">This leaves out the option fee, legal fees and the other costs listed under the calculator. Step 8 shows how much of this your CPF Ordinary Account covers.</p>`;
+
+  // 5. Monthly instalment
+  const r = HDB_RATE/100/12, n = years*12, f = Math.pow(1 + r, n);
+  const total = monthly * n, interest = total - loan;
+  const i1 = loan * r, p1 = monthly - i1;
+  $('w-pay').innerHTML =
+    `<p>This is the standard repayment formula: the same payment every month, split between interest and principal.</p>` +
+    eq(`Monthly rate r = ${HDB_RATE}% ÷ 12 = ${(r*100).toFixed(4)}% (${r.toFixed(6)})`) +
+    eq(`Number of payments n = ${years} years × 12 = ${n}`) +
+    eq(`Growth factor (1 + r)^n = (1 + ${r.toFixed(6)})^${n} = ${f.toFixed(4)}`) +
+    eq(`M = L × r × (1 + r)^n ÷ ((1 + r)^n − 1)`) +
+    eq(`M = ${fmt(loan)} × ${r.toFixed(6)} × ${f.toFixed(4)} ÷ (${f.toFixed(4)} − 1) = ${strong(fmt2(monthly))}`) +
+    eq(`Total repaid = M × n = ${fmt2(monthly)} × ${n} = ${strong(fmt(total))}`) +
+    eq(`Interest over the loan = ${fmt(total)} − ${fmt(loan)} = ${strong(fmt(interest))}`) +
+    eq(`Month 1: interest = L × r = ${fmt2(i1)}; principal = M − interest = ${fmt2(monthly)} − ${fmt2(i1)} = ${strong(fmt2(p1))}`) +
+    `<p class="calc-note">Figures are rounded for display, so multiplying the rounded numbers may differ by a few cents. 2.6% is HDB's concessionary rate, set 0.1% above the CPF Ordinary Account rate, and it is unchanged through 30 Sep 2026. Your HDB loan offer sets the real instalment. Source: ${LINK.rate}.</p>`;
+
+  const sched = yearlySchedule(loan, HDB_RATE, years).map(y =>
+    `<tr><td>${y.year}</td><td class="num">${fmt(y.interest)}</td><td class="num">${fmt(y.principal)}</td><td class="num">${fmt(y.balance)}</td></tr>`
+  ).join('');
+  $('w-schedule').innerHTML =
+    `<div class="tbl-wrap"><table class="calc-table"><tr><th>Year</th><th class="num">Interest paid</th><th class="num">Principal paid</th><th class="num">Balance left</th></tr>${sched}</table></div>`;
+
+  // 6. Tenure comparison
+  const tenures = [20, 25, 30];
+  const byTenure = tenures.map(y => {
+    const m = monthlyRepayment(loan, HDB_RATE, y), tot = m * 12 * y;
+    return {y, m, tot, int: tot - loan};
+  });
+  const tenureRows = byTenure.map(t =>
+    `<tr class="${t.y === years ? 'hl' : ''}"><td>${t.y} years</td><td class="num">${fmt2(t.m)}</td><td class="num">${fmt(t.int)}</td><td class="num">${fmt(t.tot)}</td><td>${t.y > HDB_MAX_TENURE ? 'Bank loan only' : ''}</td></tr>`
+  ).join('');
+  const a = byTenure[0], b = byTenure[1];
+  $('w-tenure').innerHTML =
+    `<p>Same loan of ${fmt(loan)} at ${HDB_RATE}%, only the tenure changes.</p>` +
+    `<div class="tbl-wrap"><table class="calc-table"><tr><th>Tenure</th><th class="num">Monthly instalment</th><th class="num">Total interest</th><th class="num">Total repaid</th><th></th></tr>${tenureRows}</table></div>` +
+    `<p>Stretching from 20 to 25 years lowers the instalment by ${strong(fmt(a.m - b.m))} a month but adds ${strong(fmt(b.int - a.int))} in interest.</p>` +
+    `<p class="calc-note">HDB's loan period is the shortest of 25 years, 65 minus the applicants' average age, and the flat's remaining lease minus 20 years. So 30 years is only possible with a bank loan, at a rate that will differ from 2.6%, and its row here is for comparison only. Sources: ${LINK.mnd}, ${LINK.period}, ${LINK.bank}.</p>`;
+
+  // 7. Income rule (MSR) check
+  const tHdb = Math.min(years, HDB_MAX_TENURE);
+  const mNow = monthlyRepayment(loan, HDB_RATE, tHdb);
+  const mTest = monthlyRepayment(loan, ASSESS_RATE, tHdb);
+  const cap = income * MSR_CAP;
+  let msr;
+  if (!(income > 0)){
+    msr = `<p class="calc-note">Enter your household income above to run this check.</p>`;
+  } else {
+    const maxL = maxLoanFor(cap, ASSESS_RATE, tHdb);
+    const ok = mTest <= cap;
+    msr =
+      `<p>HDB limits the monthly instalment to ${Math.round(MSR_CAP*100)}% of gross monthly household income (the Mortgage Servicing Ratio), and it tests that at an interest rate of at least ${ASSESS_RATE.toFixed(1)}%, over a tenure of at most ${HDB_MAX_TENURE} years. This uses ${tHdb} years.</p>` +
+      `<div class="tbl-wrap"><table class="calc-table"><tr><th></th><th class="num">Monthly</th><th class="num">Share of income</th></tr>` +
+      `<tr><td>Instalment at ${HDB_RATE}% (what you would pay)</td><td class="num">${fmt2(mNow)}</td><td class="num">${share(mNow, income)}</td></tr>` +
+      `<tr class="${ok ? '' : 'hl'}"><td>Instalment at ${ASSESS_RATE.toFixed(1)}% (HDB's test)</td><td class="num">${fmt2(mTest)}</td><td class="num">${share(mTest, income)}</td></tr>` +
+      `<tr><td>Cap: ${Math.round(MSR_CAP*100)}% of ${fmt(income)}</td><td class="num">${fmt2(cap)}</td><td class="num">${(MSR_CAP*100).toFixed(1)}%</td></tr></table></div>` +
+      (ok
+        ? `<span class="pill ok">WITHIN THE ${Math.round(MSR_CAP*100)}% CAP</span>`
+        : `<span class="pill warn">ABOVE THE ${Math.round(MSR_CAP*100)}% CAP</span>`) +
+      eq(`Largest loan the cap allows (at ${ASSESS_RATE.toFixed(1)}%, ${tHdb} years) = ${strong(fmt(maxL))}`) +
+      (ok ? '' : `<p>Your planned loan is ${strong(fmt(loan - maxL))} above that, so under these rules HDB would likely lend less than 80% of the price and you would need to cover the difference in cash or CPF.</p>`) +
+      `<p class="calc-note">Indicative only. Your HFE letter states the actual loan amount HDB will offer, which also depends on age, other debts and the flat's remaining lease. Source: ${LINK.mnd}.</p>`;
+  }
+  $('w-msr').innerHTML = msr;
+
+  // 8. CPF Ordinary Account vs cash
+  const nMonths = years * 12;
+  const earlyMonths = Math.min(EARLY_YEARS * 12, nMonths);
+  const lateMonths = nMonths - earlyMonths;
+  const pc = x => (x*100).toFixed(2) + '%';
+  const shareRows = OA_SHARES.map(([lbl, sh]) => `<tr><td>${lbl}</td><td class="num">${pc(sh)}</td></tr>`).join('');
+  $('w-cpf').innerHTML =
+    `<p><b>At purchase.</b> Your Ordinary Account (OA) can pay the down payment and stamp duty. Whatever it does not cover is cash.</p>` +
+    eq(`Paid from OA = min(OA balance, amount to fund) = min(${fmt(oaBalance)}, ${fmt(cashNeeded)}) = ${strong(fmt(oaUsed))}`) +
+    eq(`Cash at purchase = ${fmt(cashNeeded)} − ${fmt(oaUsed)} = ${strong(fmt(cashPurchase))}`) +
+    eq(`OA left after purchase = ${fmt(oaBalance)} − ${fmt(oaUsed)} = ${fmt(oaLeft)}`) +
+    `<p><b>Each month.</b> Your CPF contributions are worked out from your household income: 20% from you and 17% from your employer, 37% in total. Only the OA part can pay the instalment; the rest goes to your Special and MediSave accounts. The OA share falls as you age, so this page assumes ${strong(pc(OA_SHARE_EARLY))} for the first ${EARLY_YEARS} years of the loan and ${strong(pc(OA_SHARE_LATE))} after that.</p>` +
+    eq(`Total CPF per month = income × (20% + 17%) = ${fmt(income)} × ${CPF_TOTAL_RATE.toFixed(2)} = ${strong(fmt2(cpfTotal))}`) +
+    eq(`OA inflow, years 1 to ${EARLY_YEARS} = ${fmt2(cpfTotal)} × ${OA_SHARE_EARLY} = ${strong(fmt2(oaEarly))}`) +
+    eq(`OA inflow, year ${EARLY_YEARS + 1} onwards = ${fmt2(cpfTotal)} × ${OA_SHARE_LATE} = ${strong(fmt2(oaLate))}`) +
+    eq(`Cash top-up, years 1 to ${EARLY_YEARS} = max(0, instalment − OA inflow) = max(0, ${fmt2(monthly)} − ${fmt2(oaEarly)}) = ${strong(fmt2(topEarly))}`) +
+    eq(`Cash top-up, year ${EARLY_YEARS + 1} onwards = max(0, ${fmt2(monthly)} − ${fmt2(oaLate)}) = ${strong(fmt2(topLate))}`) +
+    eq(`Cash top-ups over the loan = ${fmt2(topEarly)} × ${earlyMonths} + ${fmt2(topLate)} × ${lateMonths} = ${strong(fmt(totalTop))}`) +
+    `<div class="tbl-wrap"><table class="calc-table"><tr><th>Age</th><th class="num">OA share of total CPF</th></tr>${shareRows}</table></div>` +
+    `<p class="calc-note">Assumes your household income stays the same for the whole loan, all of it earns CPF, and the 37% rate applies (members aged 55 and below). CPF is charged only up to a monthly wage ceiling per person (S$8,000 in 2026), which this page ignores. Not included: the option fee (always cash); renovation and furnishing, which CPF cannot pay for; any OA left after purchase, which could also go towards instalments; Home Protection Scheme premiums; and pay rises. HDB lets each buyer keep up to $20,000 in their OA and requires the rest to go into the flat purchase before the HDB loan, so a very large OA balance can change the loan itself. CPF used for the flat must also be refunded, with interest, when you sell. Sources: ${LINK.alloc}, ${LINK.oause}, ${LINK.hdbfin}.</p>`;
+}
+
+function recompute(){
+  const price = parseFloat($('price').value) || 0;
+  const income = parseFloat($('income').value) || 0;
+  const years = parseInt($('tenure').value, 10);
+  const oaBalance = Math.max(parseFloat($('oa-balance').value) || 0, 0);
+
+  const grant = computeEHG(income);
+  const loan = price * LTV;
+  const downPayment = price * (1 - LTV);
+  const grantApplied = Math.min(grant, downPayment);
+  const bsd = computeBSD(price);
+  const monthly = monthlyRepayment(loan, HDB_RATE, years);
+  const cashNeeded = Math.max(downPayment - grantApplied, 0) + bsd;
+
+  // Split between the CPF Ordinary Account and cash
+  const oaUsed = Math.min(oaBalance, cashNeeded);
+  const cashPurchase = cashNeeded - oaUsed;
+  const oaLeft = oaBalance - oaUsed;
+  const cpfTotal = income * CPF_TOTAL_RATE;
+  const oaEarly = cpfTotal * OA_SHARE_EARLY;
+  const oaLate = cpfTotal * OA_SHARE_LATE;
+  const topEarly = Math.max(monthly - oaEarly, 0);
+  const topLate = Math.max(monthly - oaLate, 0);
+  const earlyMonths = Math.min(EARLY_YEARS * 12, years * 12);
+  const totalTop = topEarly * earlyMonths + topLate * (years * 12 - earlyMonths);
+
+  $('ehg-hint').textContent = income > 9000
+    ? '→ EHG: not eligible (income above $9,000)'
+    : '→ EHG: ' + fmt(grant);
+  $('out-loan').textContent = fmt(loan);
+  $('out-down').textContent = fmt(downPayment);
+  $('out-grant').textContent = '– ' + fmt(grantApplied);
+  $('out-bsd').textContent = fmt(bsd);
+  $('out-monthly').textContent = fmt(monthly) + ' / mo';
+  $('out-total').textContent = fmt(cashNeeded);
+  $('out-oa-used').textContent = '– ' + fmt(oaUsed);
+  $('out-cash-purchase').textContent = fmt(cashPurchase);
+  $('oa-in-early').textContent = fmt(oaEarly) + ' / mo';
+  $('oa-in-late').textContent = fmt(oaLate) + ' / mo';
+  $('out-cash-early').textContent = fmt(topEarly) + ' / mo';
+  $('out-cash-late').textContent = fmt(topLate) + ' / mo';
+
+  const hint = $('tenure-hint');
+  if (years > HDB_MAX_TENURE){
+    hint.hidden = false;
+    hint.textContent = "HDB's housing loan runs at most 25 years, so 30 years would be a bank loan, at a rate different from the 2.6% used here.";
+  } else {
+    hint.hidden = true;
+  }
+
+  // MSR warning — same test HDB uses in step 7 of the working: stress-tested rate, tenure capped at 25 years
+  const tMSR = Math.min(years, HDB_MAX_TENURE);
+  const mTestMSR = monthlyRepayment(loan, ASSESS_RATE, tMSR);
+  const capMSR = income * MSR_CAP;
+  const msrAlert = $('msr-alert');
+  if (income > 0 && mTestMSR > capMSR){
+    msrAlert.hidden = false;
+    $('msr-alert-text').innerHTML =
+      `Tested at HDB's ${ASSESS_RATE.toFixed(1)}% assessment rate, this instalment would be ${share(mTestMSR, income)} of your income — above the ${Math.round(MSR_CAP*100)}% cap of HDB's <b>Mortgage Servicing Ratio (MSR)</b>. HDB would likely offer less than 80% of the price. See step 7 below. Source: ${LINK.mnd}.`;
+  } else {
+    msrAlert.hidden = true;
+  }
+
+  renderWorking({price, income, years, loan, downPayment, grant, grantApplied, bsd, monthly, cashNeeded, oaBalance, oaUsed, cashPurchase, oaLeft, cpfTotal, oaEarly, oaLate, topEarly, topLate, totalTop});
+}
+['price','income','tenure','oa-balance'].forEach(id => $(id).addEventListener('input', recompute));
+recompute();
+</script>
+
+</body>
+</html>
