@@ -104,8 +104,8 @@
   .kicker-line .dot{width:10px;height:10px;background:var(--brass);border-radius:50%;flex:none;}
   .kicker-line span{font-size:1rem;color:var(--ink-soft);}
   header.hero h1{font-size:clamp(2.3rem, 4.8vw, 3.4rem);font-weight:800;white-space:nowrap;}
-  header.hero p{max-width:52ch;color:var(--ink-soft);font-size:1.18rem;margin-top:16px;}
-  @media (max-width:560px){header.hero h1{white-space:normal;}}
+  header.hero p{max-width:none;color:var(--ink-soft);font-size:1.18rem;margin-top:16px;white-space:nowrap;}
+  @media (max-width:560px){header.hero h1,header.hero p{white-space:normal;}}
 
   /* ---- Section shell ---- */
   section{padding:64px 0;}
