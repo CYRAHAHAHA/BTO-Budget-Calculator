@@ -4,8 +4,4 @@ A lightweight, browser-based calculator and guide for comparing BTO sale modes, 
 
 ## Run locally
 
-Open `index.html` in a browser. No build step or dependencies are required.
-
-## Deploy
-
-Push to `main` and GitHub Actions will deploy the site to GitHub Pages using [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml).
+Open [`index.html` in a browser. No build step or dependencies are required.](https://cyrahahaha.github.io/Github-Pages/)
