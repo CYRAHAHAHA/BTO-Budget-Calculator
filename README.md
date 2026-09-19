@@ -4,4 +4,4 @@ A lightweight, browser-based calculator and guide for comparing BTO sale modes, 
 
 ## Run locally
 
-Open [`index.html` in a browser. No build step or dependencies are required.](https://cyrahahaha.github.io/Github-Pages/)
+Open [BTO Budget Calculator here](https://cyrahahaha.github.io/Github-Pages/)
