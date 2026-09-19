@@ -28,4 +28,5 @@ This file is the source of truth for durable product choices. Update it in the s
 - Keep a reset control and a visible matching-row count.
 - Show per-exercise context above the table: units offered, coverage, completed-unit share, and direct links to the official HDB release.
 - Treat the price table as a starting-price comparison. Exact block, unit availability, remaining lease, and live application rates must be sourced from the HDB Flat Portal for the relevant exercise; do not infer them from starting prices.
-
+- Include a clearly dated town-level snapshot when a reliable exercise-level record is available. It should identify the exercise, towns/estates, and useful supply concentrations, and link readers to the live HDB Flat Portal for the current block, unit, lease, price, completion-stage, and ethnic-quota details.
+- Historical town data must never be labelled as live availability or used to predict the next SBF exercise.
