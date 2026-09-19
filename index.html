@@ -97,7 +97,7 @@
   .mono{font-family:'IBM Plex Mono', monospace;}
 
   /* ---- Hero ---- */
-  header.hero{padding:76px 0 48px;border-bottom:3px solid var(--ink);}
+  header.hero{padding:76px 0 22px;}
   .kicker-line{
     display:flex;align-items:center;gap:12px;margin-bottom:20px;
   }
@@ -106,6 +106,17 @@
   header.hero h1{font-size:clamp(2.3rem, 4.8vw, 3.4rem);font-weight:800;white-space:nowrap;}
   header.hero p{max-width:none;color:var(--ink-soft);font-size:1.18rem;margin-top:16px;white-space:nowrap;}
   @media (max-width:560px){header.hero h1,header.hero p{white-space:normal;}}
+  .background-toggle{
+    position:relative;isolation:isolate;width:100%;min-height:54px;padding:0;border:0;background:transparent;
+    color:var(--ink);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;cursor:pointer;
+    font:inherit;text-align:center;
+  }
+  .background-toggle::before{content:'';position:absolute;z-index:-1;left:0;right:0;top:50%;height:3px;background:var(--ink);}
+  .background-toggle .label{grid-column:2;background:var(--bg);padding:0 16px;font-family:'IBM Plex Mono',monospace;font-size:0.74rem;color:var(--ink-soft);}
+  .background-toggle .icon{grid-column:3;justify-self:end;background:var(--bg);padding-left:14px;font-family:'IBM Plex Mono',monospace;font-size:1.35rem;line-height:1;color:var(--ink);}
+  .background-toggle:hover .label,.background-toggle:focus-visible .label{color:var(--ink);}
+  .background-toggle:focus-visible{outline:2px solid var(--teal);outline-offset:3px;}
+  @media (max-width:620px){.background-toggle{min-height:62px;grid-template-columns:1fr auto;}.background-toggle .label{grid-column:1;justify-self:start;text-align:left;padding-right:12px;}.background-toggle .icon{grid-column:2;}}
 
   /* ---- Section shell ---- */
   section{padding:64px 0;}
@@ -144,6 +155,15 @@
   .mode-link:hover,.mode-link:focus{color:var(--ink);}
 
   /* ---- Budget: assumption + preflight ---- */
+  .budget-primer{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:0 0 22px;}
+  .budget-primer article{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--teal);padding:17px 18px;}
+  .budget-primer article:last-child{border-top-color:var(--brass);}
+  .budget-primer .eyebrow{display:block;margin-bottom:6px;color:var(--teal);font-family:'IBM Plex Mono',monospace;font-size:0.7rem;}
+  .budget-primer article:last-child .eyebrow{color:var(--brass);}
+  .budget-primer h3{font-size:1rem;margin:0 0 6px;}
+  .budget-primer p{margin:0;color:var(--ink-soft);font-size:0.84rem;line-height:1.48;}
+  .budget-primer b{color:var(--ink);}
+  @media (max-width:680px){.budget-primer{grid-template-columns:1fr;}}
   .callout{
     background:var(--surface);border:1px solid var(--line);
     border-left:5px solid var(--brass);
@@ -441,6 +461,12 @@
     <p>Four ways to get a flat, one financing decision, and a live number for what it costs you.</p>
   </header>
 
+  <button class="background-toggle" id="background-toggle" type="button" aria-expanded="false" aria-controls="home-background">
+    <span class="label">Some background information on home purchase for the normie</span>
+    <span class="icon" id="background-toggle-icon" aria-hidden="true">+</span>
+  </button>
+
+  <div id="home-background" hidden>
   <section id="modes">
     <div class="section-head">
       <h2>Modes of sale</h2>
@@ -584,6 +610,26 @@
       </div>
     </div>
   </section>
+
+  <section id="finance-basics">
+    <div class="section-head">
+      <h2>Two money ideas</h2>
+      <span class="tally">before you calculate</span>
+    </div>
+    <div class="budget-primer">
+      <article>
+        <span class="eyebrow">LOANS</span>
+        <h3>Borrow part of the price</h3>
+        <p>A housing loan is the portion of the flat price you borrow and repay monthly. This calculator uses an HDB concessionary loan: its current legal maximum is <b>75% loan-to-value (LTV)</b>, so at least 25% is covered by grants, CPF and/or cash.</p>
+      </article>
+      <article>
+        <span class="eyebrow">HFE + EHG</span>
+        <h3>Eligibility first; grant second</h3>
+        <p><b>HFE</b> means <b>HDB Flat Eligibility</b>: the letter tells you whether you can buy, plus your eligible loan and grants. <b>EHG</b> means <b>Enhanced CPF Housing Grant</b>: for eligible buyers, it reduces the amount you need to fund; it is not a loan.</p>
+      </article>
+    </div>
+  </section>
+  </div>
 
   <section id="budget">
     <div class="section-head">
@@ -966,6 +1012,16 @@ const EHG_TIERS = [
 ];
 
 const $ = id => document.getElementById(id);
+
+const backgroundToggle = $('background-toggle');
+const homeBackground = $('home-background');
+const backgroundToggleIcon = $('background-toggle-icon');
+backgroundToggle.addEventListener('click', () => {
+  const expanded = backgroundToggle.getAttribute('aria-expanded') === 'true';
+  backgroundToggle.setAttribute('aria-expanded', String(!expanded));
+  homeBackground.hidden = expanded;
+  backgroundToggleIcon.textContent = expanded ? '+' : '−';
+});
 
 function fmt(n){
   return new Intl.NumberFormat('en-SG', {style:'currency', currency:'SGD', maximumFractionDigits:0}).format(Math.max(0,Math.round(n)));

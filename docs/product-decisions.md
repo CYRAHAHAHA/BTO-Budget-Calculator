@@ -21,6 +21,8 @@ This file is the source of truth for durable product choices. Update it in the s
 - Centre the four "Modes of sale" cards as a group.
 - External links use high-contrast white, an underline, and an external-link indicator; do not use low-contrast dark-blue links on the dark theme.
 - The Budget section does not include a `S$1,000+ Moving & basic furnishing buffer` cost item.
+- Make Budget the first substantive section after the hero. The background material is collapsed by default behind the centred divider-toggle labelled `Some background information on home purchase for the normie` and exposes a plus/minus state.
+- The collapsed background group contains Modes of sale, Standard/Plus/Prime, Exercise timeline, Staying on top of it, and a short plain-English Loans and HFE + EHG explainer. HFE must be expanded as HDB Flat Eligibility and EHG as Enhanced CPF Housing Grant.
 
 ## SBF starting-price section
 
