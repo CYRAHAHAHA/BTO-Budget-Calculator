@@ -123,6 +123,8 @@
     font-weight:600;margin-bottom:3px;
   }
   .mode-card .field p{margin:0;color:var(--ink-soft);}
+  .mode-link{margin-top:auto;padding-top:8px;font-family:'IBM Plex Mono',monospace;font-size:0.78rem;color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;width:max-content;}
+  .mode-link:hover,.mode-link:focus{border-bottom-color:currentColor;}
 
   /* ---- Budget: assumption + preflight ---- */
   .callout{
@@ -149,6 +151,9 @@
   @media (max-width:640px){.notes-row{grid-template-columns:1fr;}}
   .note-card{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--slate);padding:16px 18px;font-size:0.92rem;color:var(--ink-soft);}
   .note-card b{color:var(--ink);}
+  .note-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:6px;}
+  .mini-link,.filter-btn{display:inline-block;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);padding:5px 9px;font-family:'IBM Plex Mono',monospace;font-size:0.7rem;text-decoration:none;white-space:nowrap;cursor:pointer;}
+  .mini-link:hover,.mini-link:focus,.filter-btn:hover,.filter-btn:focus{border-color:var(--ink);color:var(--ink);}
 
   /* ---- Timeline ---- */
   .timeline{position:relative;margin:36px 0 8px;}
@@ -201,6 +206,14 @@
   .price-table td.tag.prime{color:var(--rust);}
   .price-table-wrap{overflow-x:auto;}
   @media (max-width:720px){.price-table{font-size:0.82rem;}.price-table th,.price-table td{padding:9px 8px;}}
+  .table-tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:-10px 0 16px;}
+  .table-tools .tool-label{font-size:0.82rem;color:var(--ink-soft);margin-right:2px;}
+  .filter-btn[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--surface);}
+  .price-source-note{margin:12px 0 0;font-size:0.78rem;color:var(--ink-soft);}
+  .price-source-note a{color:inherit;}
+  .sbf-table{margin-top:12px;}
+  .sbf-table td.exercise{font-family:'IBM Plex Mono',monospace;font-size:0.8rem;color:var(--ink-soft);white-space:nowrap;}
+  .sbf-table td.start{font-family:'IBM Plex Mono',monospace;white-space:nowrap;}
 
   .preflight{
     display:flex;gap:0;margin-bottom:36px;border:1px solid var(--line);background:var(--surface);
@@ -225,6 +238,18 @@
   .estimator .inputs{padding:32px 30px 34px;border-right:1px solid var(--line);}
   @media (max-width:720px){.estimator .inputs{border-right:none;border-bottom:1px solid var(--line);}}
   .estimator .outputs{padding:32px 30px;background:var(--slate-bg);}
+  .oa-runway{margin:18px 0 0;}
+  .oa-runway h3{font-size:1.12rem;margin:0 0 6px;}
+  .oa-runway .runway-note{margin:0 0 14px;font-size:0.84rem;color:var(--ink-soft);}
+  .runway-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
+  @media (max-width:900px){.runway-grid{grid-template-columns:repeat(3,1fr);}}
+  @media (max-width:560px){.runway-grid{grid-template-columns:repeat(2,1fr);}}
+  .runway-card{background:var(--surface);border:1px solid var(--line);padding:12px 10px;min-width:0;}
+  .runway-card h4{font-family:'IBM Plex Mono',monospace;font-size:0.78rem;margin:0 0 10px;color:var(--teal);}
+  .runway-card dl{margin:0;}
+  .runway-card dt{font-size:0.68rem;color:var(--ink-soft);line-height:1.25;}
+  .runway-card dd{font-family:'IBM Plex Mono',monospace;font-size:0.9rem;margin:3px 0 10px;white-space:nowrap;}
+  .runway-card dd:last-child{margin-bottom:0;color:var(--rust);}
   .field-group{margin-bottom:24px;}
   .field-group label{display:block;font-size:0.92rem;color:var(--ink-soft);margin-bottom:8px;}
   .field-group .hint{margin-top:7px;font-size:0.86rem;color:var(--teal);font-family:'IBM Plex Mono',monospace;}
@@ -346,7 +371,7 @@
 <div class="wrap">
   <header class="hero">
     <div class="kicker-line"><span class="dot"></span><span>Public housing, on your terms</span></div>
-    <h1>Modes of sale, and what your budget actually holds.</h1>
+    <h1>BTO-Budget-Calculator</h1>
     <p>Four ways to get a flat, one financing decision, and a live number for what it costs you.</p>
   </header>
 
@@ -365,6 +390,7 @@
         <div class="field"><b>What it is</b><p>New flats built to order; a ballot decides your queue number.</p></div>
         <div class="field"><b>Tells you</b><p>Your ballot chances by household status; whether you're invited to book.</p></div>
         <div class="field"><b>You decide</b><p>Town and flat type — locked in per exercise.</p></div>
+        <a class="mode-link" href="https://homes.hdb.gov.sg/home/landing" target="_blank" rel="noopener">View current BTO listings ↗</a>
       </div>
 
       <div class="mode-card" style="--accent:var(--brass);--accent-bg:var(--brass-bg);">
@@ -375,6 +401,7 @@
         <div class="field"><b>What it is</b><p>Leftover flats from past BTOs, SERS, and repurchases.</p></div>
         <div class="field"><b>Tells you</b><p>What's left, and its completion stage — often near-ready.</p></div>
         <div class="field"><b>You decide</b><p>Worth the odds, or is a low-demand BTO the better bet.</p></div>
+        <a class="mode-link" href="https://homes.hdb.gov.sg/home/landing" target="_blank" rel="noopener">View current SBF listings ↗</a>
       </div>
 
       <div class="mode-card" style="--accent:var(--rust);--accent-bg:var(--rust-bg);">
@@ -385,6 +412,7 @@
         <div class="field"><b>What it is</b><p>Unsold SBF flats, booked first-come-first-served.</p></div>
         <div class="field"><b>Tells you</b><p>A live queue number — no ballot, no waiting.</p></div>
         <div class="field"><b>You decide</b><p>Whether you can book tomorrow, since there's no runway.</p></div>
+        <a class="mode-link" href="https://homes.hdb.gov.sg/home/landing" target="_blank" rel="noopener">View open booking listings ↗</a>
       </div>
 
       <div class="mode-card" style="--accent:var(--slate);--accent-bg:var(--slate-bg);">
@@ -395,6 +423,7 @@
         <div class="field"><b>What it is</b><p>Bought directly from an existing owner, via an OTP.</p></div>
         <div class="field"><b>Tells you</b><p>Asking price, and whether cash-over-valuation applies.</p></div>
         <div class="field"><b>You decide</b><p>What to offer, and whether to exercise the option.</p></div>
+        <a class="mode-link" href="https://homes.hdb.gov.sg/home/landing" target="_blank" rel="noopener">View current resale listings ↗</a>
       </div>
 
     </div>
@@ -417,8 +446,14 @@
     </table>
 
     <div class="notes-row">
-      <div class="note-card"><b>FPPS first priority</b> — the front-of-queue boost for 4-room-or-smaller only applies in <b>Standard</b>. Plus and Prime still get the 40% quota, just not first pick within it.</div>
-      <div class="note-card"><b>FCS (Proximity) quota</b> — 30% for first-timers in Standard and Plus, dropping to <b>20% in Prime</b>. Plus costs you nothing here; Prime does.</div>
+      <div class="note-card">
+        <div class="note-card-head"><b>Family and Parenthood Priority Scheme (FPPS) — first priority</b><a class="mini-link" href="https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application/priority-schemes" target="_blank" rel="noopener">More schemes ↗</a></div>
+        The front-of-queue boost for 4-room-or-smaller only applies in <b>Standard</b>. Plus and Prime still get the 40% quota, just not first pick within it.
+      </div>
+      <div class="note-card">
+        <div class="note-card-head"><b>Family Care Scheme (FCS) (Proximity) quota</b><a class="mini-link" href="https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application/priority-schemes" target="_blank" rel="noopener">More schemes ↗</a></div>
+        30% for first-timers in Standard and Plus, dropping to <b>20% in Prime</b>. Plus costs you nothing here; Prime does.
+      </div>
     </div>
   </section>
 
@@ -434,7 +469,7 @@
           <div class="tl-dot"></div>
           <div class="status">CONFIRMED</div>
           <h4>Nov 2026</h4>
-          <p>BTO (~7,960) + SBF (~3,000). Bedok, Geylang, Sembawang, Tengah, Toa Payoh, Yishun.</p>
+          <p><a href="https://www.hdb.gov.sg/hdb-pulse/news/2026/2nd-quarter-2026-public-housing-data-and-upcoming-flat-supply" target="_blank" rel="noopener">BTO (~7,960)</a> + <a href="https://www.hdb.gov.sg/hdb-pulse/news/2026/2nd-quarter-2026-public-housing-data-and-upcoming-flat-supply" target="_blank" rel="noopener">SBF (~3,000)</a>. Bedok, Geylang, Sembawang, Tengah, Toa Payoh, Yishun.</p>
         </div>
         <div class="tl-node" style="--accent:var(--brass);">
           <div class="tl-dot"></div>
@@ -446,7 +481,7 @@
           <div class="tl-dot"></div>
           <div class="status">PROJECTED</div>
           <h4>2027–2029</h4>
-          <p>Unconfirmed — historical rhythm suggests ~Feb / Jun / Oct each year. Watch eAlerts.</p>
+          <p>Unconfirmed — historical rhythm suggests ~Feb / Jun / Oct each year. <a href="https://services2.hdb.gov.sg/webapp/BF08CESS/Subscription.jsp" target="_blank" rel="noopener">Watch eAlerts</a>.</p>
         </div>
       </div>
     </div>
@@ -467,7 +502,7 @@
     <div class="resource-grid">
       <div class="resource-card">
         <h4>HDB eAlerts</h4>
-        <p>Subscribe once — you're notified the moment a new BTO, SBF, or Open Booking round is announced, before you'd ever spot it yourself.</p>
+        <p><a href="https://services2.hdb.gov.sg/webapp/BF08CESS/Subscription.jsp" target="_blank" rel="noopener">Subscribe once</a> — you're notified the moment a new BTO, SBF, or Open Booking round is announced, before you'd ever spot it yourself.</p>
       </div>
       <div class="resource-card">
         <h4>Live application rates</h4>
@@ -537,7 +572,7 @@
           <div class="hint warn" id="tenure-hint" hidden></div>
         </div>
         <div class="field-group">
-          <label for="oa-balance">CPF Ordinary Account balance (both of you combined)</label>
+          <label for="oa-balance">Combined CPF OA balance currently</label>
           <div class="input-row"><span class="prefix">S$</span><input type="number" id="oa-balance" value="0" min="0" step="1000"></div>
           <div class="hint note">Only the OA counts, not your Special or MediSave accounts.</div>
         </div>
@@ -562,6 +597,18 @@
           <div class="out-row cash"><span class="label">Year 11 onwards</span><span class="value mono" id="out-cash-late">—</span></div>
         </div>
         <p class="out-foot">Assumes your CPF is 37% of household income (20% you, 17% employer), with the OA getting 62.17% of it for the first 10 years and 56.77% after. Cash at purchase leaves out the option fee, which is always cash, and the other costs listed below.</p>
+      </div>
+    </div>
+
+    <div class="oa-runway" aria-labelledby="runway-title">
+      <h3 id="runway-title">If you wait before buying</h3>
+      <p class="runway-note">Projected using the current combined CPF OA balance plus the calculated monthly OA inflow. Cash at purchase is the remaining amount after that projected OA balance.</p>
+      <div class="runway-grid">
+        <div class="runway-card"><h4>1Y / 12M</h4><dl><dt>Projected CPF OA</dt><dd id="runway-12-oa">—</dd><dt>Cash at purchase</dt><dd id="runway-12-cash">—</dd></dl></div>
+        <div class="runway-card"><h4>2Y / 24M</h4><dl><dt>Projected CPF OA</dt><dd id="runway-24-oa">—</dd><dt>Cash at purchase</dt><dd id="runway-24-cash">—</dd></dl></div>
+        <div class="runway-card"><h4>3Y / 36M</h4><dl><dt>Projected CPF OA</dt><dd id="runway-36-oa">—</dd><dt>Cash at purchase</dt><dd id="runway-36-cash">—</dd></dl></div>
+        <div class="runway-card"><h4>4Y / 48M</h4><dl><dt>Projected CPF OA</dt><dd id="runway-48-oa">—</dd><dt>Cash at purchase</dt><dd id="runway-48-cash">—</dd></dl></div>
+        <div class="runway-card"><h4>5Y / 60M</h4><dl><dt>Projected CPF OA</dt><dd id="runway-60-oa">—</dd><dt>Cash at purchase</dt><dd id="runway-60-cash">—</dd></dl></div>
       </div>
     </div>
 
@@ -645,6 +692,7 @@
         <li><span class="amt">~S$2,500</span><span class="desc">Legal / conveyancing fee</span></li>
         <li><span class="amt">~S$7.50/yr</span><span class="desc">Fire insurance (if HDB loan)</span></li>
         <li><span class="amt">S$1,000+</span><span class="desc">Moving &amp; basic furnishing buffer</span></li>
+        <li><span class="amt">S$20,000–60,000</span><span class="desc">Renovation allowance (estimate)</span></li>
       </ul>
       <p style="margin-top:14px;font-size:0.85rem;color:var(--ink-soft);">EHG figures assume <b style="color:var(--ink);">both of you are first-timers</b>, per HDB's table effective 20 Aug 2024. Excludes the Family Grant (resale-only) and Proximity Housing Grant (near-parents), which stack separately if you qualify.</p>
     </div>
@@ -653,11 +701,30 @@
   <section id="price-history">
     <div class="section-head">
       <h2>What past launches actually cost</h2>
-      <span class="tally">3-room &amp; 4-room, sorted by price</span>
+      <span class="tally">2024–2026 BTO starting prices</span>
+    </div>
+    <div class="table-tools" aria-label="Filter BTO prices by classification">
+      <span class="tool-label">Show:</span>
+      <button class="filter-btn" type="button" data-price-filter="all" aria-pressed="true">All</button>
+      <button class="filter-btn" type="button" data-price-filter="standard" aria-pressed="false">Standard</button>
+      <button class="filter-btn" type="button" data-price-filter="plus" aria-pressed="false">Plus</button>
+      <button class="filter-btn" type="button" data-price-filter="prime" aria-pressed="false">Prime / PLH</button>
     </div>
     <div class="price-table-wrap">
-      <table class="price-table">
+      <table class="price-table" id="bto-price-table">
         <tr><th>Town</th><th>Project</th><th>Class</th><th>Type</th><th>Exercise</th><th>Price range</th></tr>
+        <tr><td>Choa Chu Kang</td><td>Rail Garden @ CCK</td><td class="tag standard">Standard</td><td>3-room</td><td>Feb 2024</td><td class="price">From $202,000</td></tr>
+        <tr><td>Choa Chu Kang</td><td>Rail Garden @ CCK</td><td class="tag standard">Standard</td><td>4-room</td><td>Feb 2024</td><td class="price">From $300,000</td></tr>
+        <tr><td>Hougang</td><td>Tanjong Tree Residences</td><td class="tag standard">Standard</td><td>3-room</td><td>Feb 2024</td><td class="price">From $247,000</td></tr>
+        <tr><td>Punggol</td><td>Matilda Riverside</td><td class="tag standard">Standard</td><td>4-room</td><td>Feb 2024</td><td class="price">From $318,000</td></tr>
+        <tr><td>Woodlands</td><td>Woodgrove Edge</td><td class="tag standard">Standard</td><td>4-room</td><td>Feb 2024</td><td class="price">From $303,000</td></tr>
+        <tr><td>Bedok</td><td>Bedok South Bloom / North Springs</td><td class="tag standard">Standard</td><td>4-room</td><td>Feb 2024</td><td class="price">From $451,000</td></tr>
+        <tr><td>Queenstown</td><td>Tanglin Halt Courtyard</td><td class="tag prime">Prime / PLH</td><td>4-room</td><td>Feb 2024</td><td class="price">From $565,000</td></tr>
+        <tr><td>Woodlands</td><td>Woodlands North Verge</td><td class="tag standard">Standard</td><td>3-room</td><td>Feb 2025</td><td class="price">From $275,000</td></tr>
+        <tr><td>Woodlands</td><td>Woodlands North Verge</td><td class="tag standard">Standard</td><td>4-room</td><td>Feb 2025</td><td class="price">From $365,000</td></tr>
+        <tr><td>Yishun</td><td>Chencharu Green / Vines</td><td class="tag standard">Standard</td><td>4-room</td><td>Feb 2025</td><td class="price">From $316,000</td></tr>
+        <tr><td>Queenstown</td><td>Stirling Horizon</td><td class="tag plus">Plus</td><td>4-room</td><td>Feb 2025</td><td class="price">From $554,000</td></tr>
+        <tr><td>Kallang / Whampoa</td><td>Tanjong Rhu Parc Front</td><td class="tag prime">Prime</td><td>4-room</td><td>Feb 2025</td><td class="price">From $548,000</td></tr>
         <tr><td>Sembawang</td><td>Sembawang Portico</td><td class="tag standard">Standard</td><td>3-room</td><td>Jun 2026</td><td class="price">$250,000–$344,000</td></tr>
         <tr><td>Sembawang</td><td>Sembawang Brook</td><td class="tag standard">Standard</td><td>3-room</td><td>Jun 2026</td><td class="price">$257,000–$333,000</td></tr>
         <tr><td>Woodlands</td><td>Woodgrove Acres</td><td class="tag standard">Standard</td><td>3-room</td><td>Jun 2026</td><td class="price">$260,000–$325,000</td></tr>
@@ -682,7 +749,40 @@
         <tr><td>Bukit Merah</td><td>Berlayar Rise</td><td class="tag prime">Prime</td><td>4-room</td><td>Jun 2026</td><td class="price">$592,000–$810,000</td></tr>
       </table>
     </div>
-    <p style="margin-top:14px;font-size:0.85rem;color:var(--ink-soft);">Excludes grants. Sorted by the lower end of each price range. From HDB's official Annex A pricing tables for the Feb 2026 and Jun 2026 BTO exercises — the only two exercises with published prices so far.</p>
+    <p class="price-source-note">Prices exclude grants; 2024–2025 rows show the official starting price, while 2026 rows show published ranges. The 2024 exercise predates the Standard/Plus/Prime framework, so non-PLH projects are grouped under Standard and Tanglin Halt under Prime / PLH for filtering. Sources: <a href="https://www.hdb.gov.sg/hdb-pulse/news/2024/hdb-launches-5714-flats-in-feb-2024-bto-and-sbf-exercises" target="_blank" rel="noopener">HDB Feb 2024 release</a>, <a href="https://www.hdb.gov.sg/hdb-pulse/news/2025/hdb-launches-10622-flats-in-february-2025-bto-and-sbf-exercises" target="_blank" rel="noopener">HDB Feb 2025 release</a>, <a href="https://www.hdb.gov.sg/hdb-pulse/news/2026/hdb-launches-9012-flats-in-february-2026-bto-and-sbf-exercises" target="_blank" rel="noopener">HDB Feb 2026 release</a>, and <a href="https://www.hdb.gov.sg/hdb-pulse/news/2026/hdb-launches-6952-flats-across-7-projects-in-june-2026-bto-sales-exercise" target="_blank" rel="noopener">HDB Jun 2026 release</a>.</p>
+
+    <div class="section-head" style="margin-top:52px;">
+      <h2>SBF starting prices</h2>
+      <span class="tally">2024–2026 exercises · before / after EHG</span>
+    </div>
+    <div class="price-table-wrap">
+      <table class="price-table sbf-table">
+        <tr><th>Exercise</th><th>Coverage</th><th>Flat type</th><th>Before EHG</th><th>After EHG</th></tr>
+        <tr><td class="exercise">Feb 2024</td><td>Non-mature towns</td><td>CCA (30-year)</td><td class="start">From $62,000</td><td class="start">From $4,000</td></tr>
+        <tr><td class="exercise">Feb 2024</td><td>Non-mature towns</td><td>2-room Flexi</td><td class="start">From $88,000</td><td class="start">From $8,000</td></tr>
+        <tr><td class="exercise">Feb 2024</td><td>Non-mature towns</td><td>3-room</td><td class="start">From $215,000</td><td class="start">From $140,000</td></tr>
+        <tr><td class="exercise">Feb 2024</td><td>Non-mature towns</td><td>4-room</td><td class="start">From $268,000</td><td class="start">From $208,000</td></tr>
+        <tr><td class="exercise">Feb 2024</td><td>Mature towns / estates</td><td>2-room Flexi</td><td class="start">From $153,000</td><td class="start">From $73,000</td></tr>
+        <tr><td class="exercise">Feb 2024</td><td>Mature towns / estates</td><td>3-room</td><td class="start">From $289,000</td><td class="start">From $229,000</td></tr>
+        <tr><td class="exercise">Feb 2024</td><td>Mature towns / estates</td><td>4-room</td><td class="start">From $370,000</td><td class="start">From $325,000</td></tr>
+        <tr><td class="exercise">Feb 2024</td><td>Mature towns / estates</td><td>5-room</td><td class="start">From $551,000</td><td class="start">From $521,000</td></tr>
+        <tr><td class="exercise">Feb 2025</td><td>Islandwide</td><td>CCA (30-year)</td><td class="start">From $75,000</td><td class="start">From $4,000</td></tr>
+        <tr><td class="exercise">Feb 2025</td><td>Islandwide</td><td>2-room Flexi</td><td class="start">From $106,000</td><td class="start">From $6,000</td></tr>
+        <tr><td class="exercise">Feb 2025</td><td>Islandwide</td><td>3-room</td><td class="start">From $134,000</td><td class="start">From $29,000</td></tr>
+        <tr><td class="exercise">Feb 2025</td><td>Islandwide</td><td>4-room</td><td class="start">From $219,000</td><td class="start">From $139,000</td></tr>
+        <tr><td class="exercise">Feb 2025</td><td>Islandwide</td><td>5-room</td><td class="start">From $341,000</td><td class="start">From $286,000</td></tr>
+        <tr><td class="exercise">Feb 2025</td><td>Islandwide</td><td>3Gen</td><td class="start">From $534,000</td><td class="start">From $479,000</td></tr>
+        <tr><td class="exercise">Feb 2025</td><td>Islandwide</td><td>Executive</td><td class="start">From $605,000</td><td class="start">From $605,000</td></tr>
+        <tr><td class="exercise">Feb 2026</td><td>Islandwide</td><td>CCA (30-year)</td><td class="start">From $79,000</td><td class="start">From $4,000</td></tr>
+        <tr><td class="exercise">Feb 2026</td><td>Islandwide</td><td>2-room Flexi</td><td class="start">From $126,000</td><td class="start">From $7,000</td></tr>
+        <tr><td class="exercise">Feb 2026</td><td>Islandwide</td><td>3-room</td><td class="start">From $143,000</td><td class="start">From $38,000</td></tr>
+        <tr><td class="exercise">Feb 2026</td><td>Islandwide</td><td>4-room</td><td class="start">From $229,000</td><td class="start">From $149,000</td></tr>
+        <tr><td class="exercise">Feb 2026</td><td>Islandwide</td><td>5-room</td><td class="start">From $406,000</td><td class="start">From $351,000</td></tr>
+        <tr><td class="exercise">Feb 2026</td><td>Islandwide</td><td>3Gen</td><td class="start">From $595,000</td><td class="start">From $540,000</td></tr>
+        <tr><td class="exercise">Feb 2026</td><td>Islandwide</td><td>Executive</td><td class="start">From $695,000</td><td class="start">From $695,000</td></tr>
+      </table>
+    </div>
+    <p class="price-source-note">SBF values are official starting prices rounded to the nearest thousand; the after-EHG figures are illustrative and depend on eligibility. Sources: <a href="https://www.hdb.gov.sg/hdb-pulse/news/2024/hdb-launches-5714-flats-in-feb-2024-bto-and-sbf-exercises" target="_blank" rel="noopener">Feb 2024</a>, <a href="https://www.hdb.gov.sg/hdb-pulse/news/2025/hdb-launches-10622-flats-in-february-2025-bto-and-sbf-exercises" target="_blank" rel="noopener">Feb 2025</a>, and <a href="https://www.hdb.gov.sg/hdb-pulse/news/2026/hdb-launches-9012-flats-in-february-2026-bto-and-sbf-exercises" target="_blank" rel="noopener">Feb 2026</a> HDB releases.</p>
   </section>
 
   <footer>
@@ -938,6 +1038,15 @@ function renderWorking(s){
     `<p class="calc-note">Assumes your household income stays the same for the whole loan, all of it earns CPF, and the 37% rate applies (members aged 55 and below). CPF is charged only up to a monthly wage ceiling per person (S$8,000 in 2026), which this page ignores. Not included: the option fee (always cash); renovation and furnishing, which CPF cannot pay for; any OA left after purchase, which could also go towards instalments; Home Protection Scheme premiums; and pay rises. HDB lets each buyer keep up to $20,000 in their OA and requires the rest to go into the flat purchase before the HDB loan, so a very large OA balance can change the loan itself. CPF used for the flat must also be refunded, with interest, when you sell. Sources: ${LINK.alloc}, ${LINK.oause}, ${LINK.hdbfin}.</p>`;
 }
 
+function renderRunway({oaBalance, oaEarly, cashNeeded}){
+  [12, 24, 36, 48, 60].forEach(months => {
+    const projectedOA = oaBalance + oaEarly * months;
+    const cashAtPurchase = Math.max(cashNeeded - projectedOA, 0);
+    $('runway-' + months + '-oa').textContent = fmt(projectedOA);
+    $('runway-' + months + '-cash').textContent = fmt(cashAtPurchase);
+  });
+}
+
 function recompute(){
   const price = parseFloat($('price').value) || 0;
   const income = parseFloat($('income').value) || 0;
@@ -979,6 +1088,7 @@ function recompute(){
   $('oa-in-late').textContent = fmt(oaLate) + ' / mo';
   $('out-cash-early').textContent = fmt(topEarly) + ' / mo';
   $('out-cash-late').textContent = fmt(topLate) + ' / mo';
+  renderRunway({oaBalance, oaEarly, cashNeeded});
 
   const hint = $('tenure-hint');
   if (years > HDB_MAX_TENURE){
@@ -1004,6 +1114,16 @@ function recompute(){
   renderWorking({price, income, years, loan, downPayment, grant, grantApplied, bsd, monthly, cashNeeded, oaBalance, oaUsed, cashPurchase, oaLeft, cpfTotal, oaEarly, oaLate, topEarly, topLate, totalTop});
 }
 ['price','income','tenure','oa-balance'].forEach(id => $(id).addEventListener('input', recompute));
+document.querySelectorAll('[data-price-filter]').forEach(button => {
+  button.addEventListener('click', () => {
+    const filter = button.dataset.priceFilter;
+    document.querySelectorAll('[data-price-filter]').forEach(btn => btn.setAttribute('aria-pressed', String(btn === button)));
+    document.querySelectorAll('#bto-price-table tr').forEach(row => {
+      const tag = row.querySelector('.tag');
+      row.hidden = Boolean(tag && filter !== 'all' && !tag.classList.contains(filter));
+    });
+  });
+});
 recompute();
 </script>
 
