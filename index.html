@@ -213,7 +213,16 @@
   .price-source-note a{color:inherit;}
   .sbf-table{margin-top:12px;}
   .sbf-table td.exercise{font-family:'IBM Plex Mono',monospace;font-size:0.8rem;color:var(--ink-soft);white-space:nowrap;}
+  .sbf-table td.area{color:var(--ink-soft);min-width:190px;}
   .sbf-table td.start{font-family:'IBM Plex Mono',monospace;white-space:nowrap;}
+  .sbf-intro{margin:0 0 16px;color:var(--ink-soft);font-size:0.9rem;max-width:75ch;}
+  .sbf-quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:0 0 22px;}
+  @media (max-width:800px){.sbf-quick-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:480px){.sbf-quick-grid{grid-template-columns:1fr;}}
+  .sbf-quick-card{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--brass);padding:14px 15px;}
+  .sbf-quick-card h4{font-family:'Archivo';font-size:0.92rem;margin:0 0 7px;}
+  .sbf-quick-card p{margin:0;color:var(--ink-soft);font-size:0.78rem;line-height:1.4;}
+  .sbf-quick-card .range{display:block;margin-top:8px;font-family:'IBM Plex Mono',monospace;color:var(--ink);font-size:0.82rem;}
 
   .preflight{
     display:flex;gap:0;margin-bottom:36px;border:1px solid var(--line);background:var(--surface);
@@ -749,37 +758,44 @@
         <tr><td>Bukit Merah</td><td>Berlayar Rise</td><td class="tag prime">Prime</td><td>4-room</td><td>Jun 2026</td><td class="price">$592,000–$810,000</td></tr>
       </table>
     </div>
-    <p class="price-source-note">Prices exclude grants; 2024–2025 rows show the official starting price, while 2026 rows show published ranges. The 2024 exercise predates the Standard/Plus/Prime framework, so non-PLH projects are grouped under Standard and Tanglin Halt under Prime / PLH for filtering. Sources: <a href="https://www.hdb.gov.sg/hdb-pulse/news/2024/hdb-launches-5714-flats-in-feb-2024-bto-and-sbf-exercises" target="_blank" rel="noopener">HDB Feb 2024 release</a>, <a href="https://www.hdb.gov.sg/hdb-pulse/news/2025/hdb-launches-10622-flats-in-february-2025-bto-and-sbf-exercises" target="_blank" rel="noopener">HDB Feb 2025 release</a>, <a href="https://www.hdb.gov.sg/hdb-pulse/news/2026/hdb-launches-9012-flats-in-february-2026-bto-and-sbf-exercises" target="_blank" rel="noopener">HDB Feb 2026 release</a>, and <a href="https://www.hdb.gov.sg/hdb-pulse/news/2026/hdb-launches-6952-flats-across-7-projects-in-june-2026-bto-sales-exercise" target="_blank" rel="noopener">HDB Jun 2026 release</a>.</p>
+    <p class="price-source-note">Prices exclude grants; 2024–2025 rows show the official starting price, while 2026 rows show published ranges. PLH means <b>Prime Location Public Housing</b>; the 2024 exercise predates the Standard/Plus/Prime framework, so non-PLH projects are grouped under Standard and Tanglin Halt under Prime / PLH for filtering. Sources: <a href="https://www.hdb.gov.sg/hdb-pulse/news/2024/hdb-launches-5714-flats-in-feb-2024-bto-and-sbf-exercises" target="_blank" rel="noopener">HDB Feb 2024 release</a>, <a href="https://www.hdb.gov.sg/hdb-pulse/news/2025/hdb-launches-10622-flats-in-february-2025-bto-and-sbf-exercises" target="_blank" rel="noopener">HDB Feb 2025 release</a>, <a href="https://www.hdb.gov.sg/hdb-pulse/news/2026/hdb-launches-9012-flats-in-february-2026-bto-and-sbf-exercises" target="_blank" rel="noopener">HDB Feb 2026 release</a>, and <a href="https://www.hdb.gov.sg/hdb-pulse/news/2026/hdb-launches-6952-flats-across-7-projects-in-june-2026-bto-sales-exercise" target="_blank" rel="noopener">HDB Jun 2026 release</a>.</p>
 
     <div class="section-head" style="margin-top:52px;">
       <h2>SBF starting prices</h2>
       <span class="tally">2024–2026 exercises · before / after EHG</span>
     </div>
+    <p class="sbf-intro">A quick way to read this: start with the flat type, then compare the rough starting price before and after the Enhanced CPF Housing Grant (EHG). HDB’s release tables publish these prices by flat type; the exact SBF town, block, remaining lease, and units available change by exercise and are best checked on the <a href="https://homes.hdb.gov.sg/home/landing" target="_blank" rel="noopener">HDB Flat Portal</a>.</p>
+    <div class="sbf-quick-grid" aria-label="SBF price ranges at a glance">
+      <div class="sbf-quick-card"><h4>CCA / 2-room Flexi</h4><p>Entry-level options; CCA uses a 30-year lease.</p><span class="range">Before EHG: S$62k–126k</span></div>
+      <div class="sbf-quick-card"><h4>3-room</h4><p>Smaller family option across non-mature, mature, and islandwide exercises.</p><span class="range">Before EHG: S$134k–289k</span></div>
+      <div class="sbf-quick-card"><h4>4-room</h4><p>The broadest common family-size comparison.</p><span class="range">Before EHG: S$219k–370k</span></div>
+      <div class="sbf-quick-card"><h4>5-room and larger</h4><p>Larger homes; 3Gen and Executive units appear in 2025–2026.</p><span class="range">Before EHG: S$341k–695k</span></div>
+    </div>
     <div class="price-table-wrap">
       <table class="price-table sbf-table">
-        <tr><th>Exercise</th><th>Coverage</th><th>Flat type</th><th>Before EHG</th><th>After EHG</th></tr>
-        <tr><td class="exercise">Feb 2024</td><td>Non-mature towns</td><td>CCA (30-year)</td><td class="start">From $62,000</td><td class="start">From $4,000</td></tr>
-        <tr><td class="exercise">Feb 2024</td><td>Non-mature towns</td><td>2-room Flexi</td><td class="start">From $88,000</td><td class="start">From $8,000</td></tr>
-        <tr><td class="exercise">Feb 2024</td><td>Non-mature towns</td><td>3-room</td><td class="start">From $215,000</td><td class="start">From $140,000</td></tr>
-        <tr><td class="exercise">Feb 2024</td><td>Non-mature towns</td><td>4-room</td><td class="start">From $268,000</td><td class="start">From $208,000</td></tr>
-        <tr><td class="exercise">Feb 2024</td><td>Mature towns / estates</td><td>2-room Flexi</td><td class="start">From $153,000</td><td class="start">From $73,000</td></tr>
-        <tr><td class="exercise">Feb 2024</td><td>Mature towns / estates</td><td>3-room</td><td class="start">From $289,000</td><td class="start">From $229,000</td></tr>
-        <tr><td class="exercise">Feb 2024</td><td>Mature towns / estates</td><td>4-room</td><td class="start">From $370,000</td><td class="start">From $325,000</td></tr>
-        <tr><td class="exercise">Feb 2024</td><td>Mature towns / estates</td><td>5-room</td><td class="start">From $551,000</td><td class="start">From $521,000</td></tr>
-        <tr><td class="exercise">Feb 2025</td><td>Islandwide</td><td>CCA (30-year)</td><td class="start">From $75,000</td><td class="start">From $4,000</td></tr>
-        <tr><td class="exercise">Feb 2025</td><td>Islandwide</td><td>2-room Flexi</td><td class="start">From $106,000</td><td class="start">From $6,000</td></tr>
-        <tr><td class="exercise">Feb 2025</td><td>Islandwide</td><td>3-room</td><td class="start">From $134,000</td><td class="start">From $29,000</td></tr>
-        <tr><td class="exercise">Feb 2025</td><td>Islandwide</td><td>4-room</td><td class="start">From $219,000</td><td class="start">From $139,000</td></tr>
-        <tr><td class="exercise">Feb 2025</td><td>Islandwide</td><td>5-room</td><td class="start">From $341,000</td><td class="start">From $286,000</td></tr>
-        <tr><td class="exercise">Feb 2025</td><td>Islandwide</td><td>3Gen</td><td class="start">From $534,000</td><td class="start">From $479,000</td></tr>
-        <tr><td class="exercise">Feb 2025</td><td>Islandwide</td><td>Executive</td><td class="start">From $605,000</td><td class="start">From $605,000</td></tr>
-        <tr><td class="exercise">Feb 2026</td><td>Islandwide</td><td>CCA (30-year)</td><td class="start">From $79,000</td><td class="start">From $4,000</td></tr>
-        <tr><td class="exercise">Feb 2026</td><td>Islandwide</td><td>2-room Flexi</td><td class="start">From $126,000</td><td class="start">From $7,000</td></tr>
-        <tr><td class="exercise">Feb 2026</td><td>Islandwide</td><td>3-room</td><td class="start">From $143,000</td><td class="start">From $38,000</td></tr>
-        <tr><td class="exercise">Feb 2026</td><td>Islandwide</td><td>4-room</td><td class="start">From $229,000</td><td class="start">From $149,000</td></tr>
-        <tr><td class="exercise">Feb 2026</td><td>Islandwide</td><td>5-room</td><td class="start">From $406,000</td><td class="start">From $351,000</td></tr>
-        <tr><td class="exercise">Feb 2026</td><td>Islandwide</td><td>3Gen</td><td class="start">From $595,000</td><td class="start">From $540,000</td></tr>
-        <tr><td class="exercise">Feb 2026</td><td>Islandwide</td><td>Executive</td><td class="start">From $695,000</td><td class="start">From $695,000</td></tr>
+        <tr><th>Exercise</th><th>Area / location scope</th><th>Flat type</th><th>Before EHG</th><th>After EHG</th></tr>
+        <tr><td class="exercise">Feb 2024</td><td class="area">Non-mature towns (various)</td><td>CCA (30-year)</td><td class="start">From $62,000</td><td class="start">From $4,000</td></tr>
+        <tr><td class="exercise">Feb 2024</td><td class="area">Non-mature towns (various)</td><td>2-room Flexi</td><td class="start">From $88,000</td><td class="start">From $8,000</td></tr>
+        <tr><td class="exercise">Feb 2024</td><td class="area">Non-mature towns (various)</td><td>3-room</td><td class="start">From $215,000</td><td class="start">From $140,000</td></tr>
+        <tr><td class="exercise">Feb 2024</td><td class="area">Non-mature towns (various)</td><td>4-room</td><td class="start">From $268,000</td><td class="start">From $208,000</td></tr>
+        <tr><td class="exercise">Feb 2024</td><td class="area">Mature towns / estates (various)</td><td>2-room Flexi</td><td class="start">From $153,000</td><td class="start">From $73,000</td></tr>
+        <tr><td class="exercise">Feb 2024</td><td class="area">Mature towns / estates (various)</td><td>3-room</td><td class="start">From $289,000</td><td class="start">From $229,000</td></tr>
+        <tr><td class="exercise">Feb 2024</td><td class="area">Mature towns / estates (various)</td><td>4-room</td><td class="start">From $370,000</td><td class="start">From $325,000</td></tr>
+        <tr><td class="exercise">Feb 2024</td><td class="area">Mature towns / estates (various)</td><td>5-room</td><td class="start">From $551,000</td><td class="start">From $521,000</td></tr>
+        <tr><td class="exercise">Feb 2025</td><td class="area">Islandwide (town/block varies)</td><td>CCA (30-year)</td><td class="start">From $75,000</td><td class="start">From $4,000</td></tr>
+        <tr><td class="exercise">Feb 2025</td><td class="area">Islandwide (town/block varies)</td><td>2-room Flexi</td><td class="start">From $106,000</td><td class="start">From $6,000</td></tr>
+        <tr><td class="exercise">Feb 2025</td><td class="area">Islandwide (town/block varies)</td><td>3-room</td><td class="start">From $134,000</td><td class="start">From $29,000</td></tr>
+        <tr><td class="exercise">Feb 2025</td><td class="area">Islandwide (town/block varies)</td><td>4-room</td><td class="start">From $219,000</td><td class="start">From $139,000</td></tr>
+        <tr><td class="exercise">Feb 2025</td><td class="area">Islandwide (town/block varies)</td><td>5-room</td><td class="start">From $341,000</td><td class="start">From $286,000</td></tr>
+        <tr><td class="exercise">Feb 2025</td><td class="area">Islandwide (town/block varies)</td><td>3Gen</td><td class="start">From $534,000</td><td class="start">From $479,000</td></tr>
+        <tr><td class="exercise">Feb 2025</td><td class="area">Islandwide (town/block varies)</td><td>Executive</td><td class="start">From $605,000</td><td class="start">From $605,000</td></tr>
+        <tr><td class="exercise">Feb 2026</td><td class="area">Islandwide (town/block varies)</td><td>CCA (30-year)</td><td class="start">From $79,000</td><td class="start">From $4,000</td></tr>
+        <tr><td class="exercise">Feb 2026</td><td class="area">Islandwide (town/block varies)</td><td>2-room Flexi</td><td class="start">From $126,000</td><td class="start">From $7,000</td></tr>
+        <tr><td class="exercise">Feb 2026</td><td class="area">Islandwide (town/block varies)</td><td>3-room</td><td class="start">From $143,000</td><td class="start">From $38,000</td></tr>
+        <tr><td class="exercise">Feb 2026</td><td class="area">Islandwide (town/block varies)</td><td>4-room</td><td class="start">From $229,000</td><td class="start">From $149,000</td></tr>
+        <tr><td class="exercise">Feb 2026</td><td class="area">Islandwide (town/block varies)</td><td>5-room</td><td class="start">From $406,000</td><td class="start">From $351,000</td></tr>
+        <tr><td class="exercise">Feb 2026</td><td class="area">Islandwide (town/block varies)</td><td>3Gen</td><td class="start">From $595,000</td><td class="start">From $540,000</td></tr>
+        <tr><td class="exercise">Feb 2026</td><td class="area">Islandwide (town/block varies)</td><td>Executive</td><td class="start">From $695,000</td><td class="start">From $695,000</td></tr>
       </table>
     </div>
     <p class="price-source-note">SBF values are official starting prices rounded to the nearest thousand; the after-EHG figures are illustrative and depend on eligibility. Sources: <a href="https://www.hdb.gov.sg/hdb-pulse/news/2024/hdb-launches-5714-flats-in-feb-2024-bto-and-sbf-exercises" target="_blank" rel="noopener">Feb 2024</a>, <a href="https://www.hdb.gov.sg/hdb-pulse/news/2025/hdb-launches-10622-flats-in-february-2025-bto-and-sbf-exercises" target="_blank" rel="noopener">Feb 2025</a>, and <a href="https://www.hdb.gov.sg/hdb-pulse/news/2026/hdb-launches-9012-flats-in-february-2026-bto-and-sbf-exercises" target="_blank" rel="noopener">Feb 2026</a> HDB releases.</p>
