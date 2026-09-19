@@ -526,7 +526,7 @@
     </div>
 
     <div class="callout">
-      Everything below assumes the <b>HDB Concessionary Loan</b> — 80% max LTV, rate pegged 0.1% above the CPF OA rate, no lock-in. Confirm the live rate on HDB's site before relying on it.
+      Everything below assumes the <b>HDB Concessionary Loan</b> — 75% max LTV, rate pegged 0.1% above the CPF OA rate, no lock-in. Confirm the live rate on HDB's site before relying on it.
     </div>
 
     <div class="preflight">
@@ -578,8 +578,8 @@
         </div>
       </div>
       <div class="outputs">
-        <div class="out-row"><span class="label">HDB loan (80% LTV)</span><span class="value mono" id="out-loan">—</span></div>
-        <div class="out-row"><span class="label">Down payment (20%)</span><span class="value mono" id="out-down">—</span></div>
+        <div class="out-row"><span class="label">HDB loan (75% LTV)</span><span class="value mono" id="out-loan">—</span></div>
+        <div class="out-row"><span class="label">Down payment (25%)</span><span class="value mono" id="out-down">—</span></div>
         <div class="out-row"><span class="label">EHG applied to down payment</span><span class="value mono" id="out-grant">—</span></div>
         <div class="out-row"><span class="label">Buyer's Stamp Duty</span><span class="value mono" id="out-bsd">—</span></div>
         <div class="out-row"><span class="label">Est. monthly instalment</span><span class="value mono" id="out-monthly">—</span></div>
@@ -792,7 +792,7 @@
 
 <script>
 // ---- Assumptions (each is explained, with its source, in "Show the working") ----
-const LTV = 0.8;              // HDB housing loan: maximum loan-to-value
+const LTV = 0.75;             // HDB housing loan: maximum loan-to-value (current cap)
 const HDB_RATE = 2.6;         // HDB concessionary rate, % a year (CPF OA rate + 0.1%)
 const ASSESS_RATE = 3.0;      // interest-rate floor HDB uses when assessing loan eligibility, % a year
 const MSR_CAP = 0.30;         // monthly instalment cap as a share of gross monthly household income
@@ -913,7 +913,7 @@ function renderWorking(s){
   $('w-loan').innerHTML =
     eq(`Loan = price × ${Math.round(LTV*100)}% = ${fmt(price)} × ${LTV.toFixed(2)} = ${strong(fmt(loan))}`) +
     eq(`Down payment = price × ${Math.round((1-LTV)*100)}% = ${fmt(price)} × ${(1-LTV).toFixed(2)} = ${strong(fmt(downPayment))}`) +
-    `<p class="calc-note">80% is the highest loan-to-value ratio HDB applies when sizing its housing loan. The other 20% comes from CPF, cash or grants. Source: ${LINK.mnd}.</p>`;
+    `<p class="calc-note">${Math.round(LTV*100)}% is the highest loan-to-value ratio HDB applies when sizing its housing loan. The other ${Math.round((1-LTV)*100)}% comes from CPF, cash or grants. Source: ${LINK.mnd}.</p>`;
 
   // 2. EHG lookup
   const band = ehgBand(income);
@@ -1011,7 +1011,7 @@ function renderWorking(s){
         ? `<span class="pill ok">WITHIN THE ${Math.round(MSR_CAP*100)}% CAP</span>`
         : `<span class="pill warn">ABOVE THE ${Math.round(MSR_CAP*100)}% CAP</span>`) +
       eq(`Largest loan the cap allows (at ${ASSESS_RATE.toFixed(1)}%, ${tHdb} years) = ${strong(fmt(maxL))}`) +
-      (ok ? '' : `<p>Your planned loan is ${strong(fmt(loan - maxL))} above that, so under these rules HDB would likely lend less than 80% of the price and you would need to cover the difference in cash or CPF.</p>`) +
+      (ok ? '' : `<p>Your planned loan is ${strong(fmt(loan - maxL))} above that, so under these rules HDB would likely lend less than ${Math.round(LTV*100)}% of the price and you would need to cover the difference in cash or CPF.</p>`) +
       `<p class="calc-note">Indicative only. Your HFE letter states the actual loan amount HDB will offer, which also depends on age, other debts and the flat's remaining lease. Source: ${LINK.mnd}.</p>`;
   }
   $('w-msr').innerHTML = msr;
@@ -1106,7 +1106,7 @@ function recompute(){
   if (income > 0 && mTestMSR > capMSR){
     msrAlert.hidden = false;
     $('msr-alert-text').innerHTML =
-      `Tested at HDB's ${ASSESS_RATE.toFixed(1)}% assessment rate, this instalment would be ${share(mTestMSR, income)} of your income — above the ${Math.round(MSR_CAP*100)}% cap of HDB's <b>Mortgage Servicing Ratio (MSR)</b>. HDB would likely offer less than 80% of the price. See step 7 below. Source: ${LINK.mnd}.`;
+      `Tested at HDB's ${ASSESS_RATE.toFixed(1)}% assessment rate, this instalment would be ${share(mTestMSR, income)} of your income — above the ${Math.round(MSR_CAP*100)}% cap of HDB's <b>Mortgage Servicing Ratio (MSR)</b>. HDB would likely offer less than ${Math.round(LTV*100)}% of the price. See step 7 below. Source: ${LINK.mnd}.`;
   } else {
     msrAlert.hidden = true;
   }
