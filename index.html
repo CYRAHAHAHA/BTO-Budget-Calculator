@@ -224,6 +224,17 @@
   .table-tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:-10px 0 16px;}
   .table-tools .tool-label{font-size:0.82rem;color:var(--ink-soft);margin-right:2px;}
   .filter-btn[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--surface);}
+  .sbf-controls{display:flex;align-items:flex-end;gap:10px;flex-wrap:wrap;margin:0 0 12px;}
+  .sbf-control{display:flex;flex-direction:column;gap:5px;min-width:150px;}
+  .sbf-control.search{flex:1 1 230px;}
+  .sbf-control label{font-size:0.72rem;color:var(--ink-soft);font-family:'IBM Plex Mono',monospace;}
+  .sbf-control input,.sbf-control select{
+    min-height:32px;border:1px solid var(--line);background:var(--bg);color:var(--ink);
+    padding:6px 9px;font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:0.84rem;
+  }
+  .sbf-control input:focus,.sbf-control select:focus{outline:2px solid var(--teal);outline-offset:1px;}
+  .sbf-results{margin-left:auto;padding-bottom:7px;color:var(--ink-soft);font-family:'IBM Plex Mono',monospace;font-size:0.72rem;white-space:nowrap;}
+  .sbf-empty{margin:12px 0 0;color:var(--ink-soft);font-size:0.84rem;}
   .price-source-note{margin:12px 0 0;font-size:0.78rem;color:var(--ink-soft);}
   .price-source-note a{color:inherit;}
   .sbf-table{margin-top:12px;}
@@ -798,8 +809,38 @@
       <div class="sbf-quick-card"><h4>4-room</h4><p>The broadest common family-size comparison.</p><span class="range">Before EHG: S$219k–370k</span></div>
       <div class="sbf-quick-card"><h4>5-room and larger</h4><p>Larger homes; 3Gen and Executive units appear in 2025–2026.</p><span class="range">Before EHG: S$341k–695k</span></div>
     </div>
+    <div class="sbf-controls" aria-label="Filter and sort SBF starting prices">
+      <div class="sbf-control search">
+        <label for="sbf-search">Find an area or flat type</label>
+        <input type="search" id="sbf-search" placeholder="e.g. islandwide or 4-room">
+      </div>
+      <div class="sbf-control">
+        <label for="sbf-exercise">Exercise</label>
+        <select id="sbf-exercise">
+          <option value="all">All exercises</option>
+        </select>
+      </div>
+      <div class="sbf-control">
+        <label for="sbf-type">Flat type</label>
+        <select id="sbf-type">
+          <option value="all">All flat types</option>
+        </select>
+      </div>
+      <div class="sbf-control">
+        <label for="sbf-sort">Sort by</label>
+        <select id="sbf-sort">
+          <option value="source">Original order</option>
+          <option value="before-asc">Before EHG: low to high</option>
+          <option value="before-desc">Before EHG: high to low</option>
+          <option value="after-asc">After EHG: low to high</option>
+          <option value="after-desc">After EHG: high to low</option>
+        </select>
+      </div>
+      <button class="filter-btn" type="button" id="sbf-reset">Reset</button>
+      <span class="sbf-results" id="sbf-results" aria-live="polite"></span>
+    </div>
     <div class="price-table-wrap">
-      <table class="price-table sbf-table">
+      <table class="price-table sbf-table" id="sbf-table">
         <tr><th>Exercise</th><th>Area / location scope</th><th>Flat type</th><th>Before EHG</th><th>After EHG</th></tr>
         <tr><td class="exercise">Feb 2024</td><td class="area">Non-mature towns (various)</td><td>CCA (30-year)</td><td class="start">From $62,000</td><td class="start">From $4,000</td></tr>
         <tr><td class="exercise">Feb 2024</td><td class="area">Non-mature towns (various)</td><td>2-room Flexi</td><td class="start">From $88,000</td><td class="start">From $8,000</td></tr>
@@ -825,6 +866,7 @@
         <tr><td class="exercise">Feb 2026</td><td class="area">Islandwide (town/block varies)</td><td>Executive</td><td class="start">From $695,000</td><td class="start">From $695,000</td></tr>
       </table>
     </div>
+    <p class="sbf-empty" id="sbf-empty" hidden>No SBF rows match those filters.</p>
     <p class="price-source-note">SBF values are official starting prices rounded to the nearest thousand; the after-EHG figures are illustrative and depend on eligibility. Sources: <a href="https://www.hdb.gov.sg/hdb-pulse/news/2024/hdb-launches-5714-flats-in-feb-2024-bto-and-sbf-exercises" target="_blank" rel="noopener">Feb 2024</a>, <a href="https://www.hdb.gov.sg/hdb-pulse/news/2025/hdb-launches-10622-flats-in-february-2025-bto-and-sbf-exercises" target="_blank" rel="noopener">Feb 2025</a>, and <a href="https://www.hdb.gov.sg/hdb-pulse/news/2026/hdb-launches-9012-flats-in-february-2026-bto-and-sbf-exercises" target="_blank" rel="noopener">Feb 2026</a> HDB releases.</p>
   </section>
 
@@ -1170,6 +1212,76 @@ document.querySelectorAll('[data-price-filter]').forEach(button => {
     });
   });
 });
+
+// SBF table filters and sorting
+const sbfTable = $('sbf-table');
+const sbfRows = Array.from(sbfTable.querySelectorAll('tr')).slice(1);
+const sbfCollator = new Intl.Collator('en', {numeric:true, sensitivity:'base'});
+sbfRows.forEach((row, index) => { row.dataset.sbfIndex = index; });
+
+function sbfNumber(row, cellIndex){
+  const match = row.cells[cellIndex].textContent.replace(/,/g, '').match(/\d+/);
+  return match ? Number(match[0]) : Number.POSITIVE_INFINITY;
+}
+
+function addSbfFilterOptions(id, values, allLabel){
+  const select = $(id);
+  [...new Set(values)].sort(sbfCollator.compare).forEach(value => {
+    const option = document.createElement('option');
+    option.value = value;
+    option.textContent = value;
+    select.appendChild(option);
+  });
+  select.setAttribute('aria-label', allLabel);
+}
+
+addSbfFilterOptions('sbf-exercise', sbfRows.map(row => row.cells[0].textContent.trim()), 'Filter SBF by exercise');
+addSbfFilterOptions('sbf-type', sbfRows.map(row => row.cells[2].textContent.trim()), 'Filter SBF by flat type');
+
+function applySbfTableView(){
+  const search = $('sbf-search').value.trim().toLowerCase();
+  const exercise = $('sbf-exercise').value;
+  const type = $('sbf-type').value;
+  const sort = $('sbf-sort').value;
+  const rows = [...sbfRows];
+  const sortParts = sort.split('-');
+
+  if (sort !== 'source'){
+    const cellIndex = sortParts[0] === 'before' ? 3 : 4;
+    const direction = sortParts[1] === 'desc' ? -1 : 1;
+    rows.sort((a, b) =>
+      (sbfNumber(a, cellIndex) - sbfNumber(b, cellIndex)) * direction ||
+      (Number(a.dataset.sbfIndex) - Number(b.dataset.sbfIndex))
+    );
+  } else {
+    rows.sort((a, b) => Number(a.dataset.sbfIndex) - Number(b.dataset.sbfIndex));
+  }
+
+  let shown = 0;
+  rows.forEach(row => {
+    const matchesSearch = !search || row.textContent.toLowerCase().includes(search);
+    const matchesExercise = exercise === 'all' || row.cells[0].textContent.trim() === exercise;
+    const matchesType = type === 'all' || row.cells[2].textContent.trim() === type;
+    row.hidden = !(matchesSearch && matchesExercise && matchesType);
+    if (!row.hidden) shown += 1;
+    sbfTable.appendChild(row);
+  });
+
+  $('sbf-results').textContent = `Showing ${shown} of ${sbfRows.length} rows`;
+  $('sbf-empty').hidden = shown !== 0;
+}
+
+['sbf-search','sbf-exercise','sbf-type','sbf-sort'].forEach(id => {
+  $(id).addEventListener(id === 'sbf-search' ? 'input' : 'change', applySbfTableView);
+});
+$('sbf-reset').addEventListener('click', () => {
+  $('sbf-search').value = '';
+  $('sbf-exercise').value = 'all';
+  $('sbf-type').value = 'all';
+  $('sbf-sort').value = 'source';
+  applySbfTableView();
+});
+applySbfTableView();
 recompute();
 </script>
 
