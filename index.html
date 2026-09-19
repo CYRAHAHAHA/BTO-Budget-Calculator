@@ -78,6 +78,21 @@
     letter-spacing:-0.01em;
     margin:0;
   }
+  a{
+    color:var(--ink);
+    text-decoration-line:underline;
+    text-decoration-thickness:1.5px;
+    text-underline-offset:0.18em;
+  }
+  a[target="_blank"]::after{
+    content:'↗';
+    display:inline-block;
+    margin-left:0.35em;
+    font-size:0.85em;
+    line-height:1;
+    text-decoration:none;
+    vertical-align:0.05em;
+  }
   .wrap{max-width:1080px;margin:0 auto;padding:0 28px;}
   .mono{font-family:'IBM Plex Mono', monospace;}
 
@@ -123,8 +138,8 @@
     font-weight:600;margin-bottom:3px;
   }
   .mode-card .field p{margin:0;color:var(--ink-soft);}
-  .mode-link{margin-top:auto;padding-top:8px;font-family:'IBM Plex Mono',monospace;font-size:0.78rem;color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;width:max-content;}
-  .mode-link:hover,.mode-link:focus{border-bottom-color:currentColor;}
+  .mode-link{margin-top:auto;padding-top:8px;font-family:'IBM Plex Mono',monospace;font-size:0.78rem;color:var(--ink);width:max-content;}
+  .mode-link:hover,.mode-link:focus{color:var(--ink);}
 
   /* ---- Budget: assumption + preflight ---- */
   .callout{
@@ -152,7 +167,7 @@
   .note-card{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--slate);padding:16px 18px;font-size:0.92rem;color:var(--ink-soft);}
   .note-card b{color:var(--ink);}
   .note-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:6px;}
-  .mini-link,.filter-btn{display:inline-block;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);padding:5px 9px;font-family:'IBM Plex Mono',monospace;font-size:0.7rem;text-decoration:none;white-space:nowrap;cursor:pointer;}
+  .mini-link,.filter-btn{display:inline-block;border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:5px 9px;font-family:'IBM Plex Mono',monospace;font-size:0.7rem;white-space:nowrap;cursor:pointer;}
   .mini-link:hover,.mini-link:focus,.filter-btn:hover,.filter-btn:focus{border-color:var(--ink);color:var(--ink);}
 
   /* ---- Timeline ---- */
@@ -399,7 +414,7 @@
         <div class="field"><b>What it is</b><p>New flats built to order; a ballot decides your queue number.</p></div>
         <div class="field"><b>Tells you</b><p>Your ballot chances by household status; whether you're invited to book.</p></div>
         <div class="field"><b>You decide</b><p>Town and flat type — locked in per exercise.</p></div>
-        <a class="mode-link" href="https://homes.hdb.gov.sg/home/landing" target="_blank" rel="noopener">View current BTO listings ↗</a>
+        <a class="mode-link" href="https://homes.hdb.gov.sg/home/landing" target="_blank" rel="noopener">View current BTO listings</a>
       </div>
 
       <div class="mode-card" style="--accent:var(--brass);--accent-bg:var(--brass-bg);">
@@ -410,7 +425,7 @@
         <div class="field"><b>What it is</b><p>Leftover flats from past BTOs, SERS, and repurchases.</p></div>
         <div class="field"><b>Tells you</b><p>What's left, and its completion stage — often near-ready.</p></div>
         <div class="field"><b>You decide</b><p>Worth the odds, or is a low-demand BTO the better bet.</p></div>
-        <a class="mode-link" href="https://homes.hdb.gov.sg/home/landing" target="_blank" rel="noopener">View current SBF listings ↗</a>
+        <a class="mode-link" href="https://homes.hdb.gov.sg/home/landing" target="_blank" rel="noopener">View current SBF listings</a>
       </div>
 
       <div class="mode-card" style="--accent:var(--rust);--accent-bg:var(--rust-bg);">
@@ -421,7 +436,7 @@
         <div class="field"><b>What it is</b><p>Unsold SBF flats, booked first-come-first-served.</p></div>
         <div class="field"><b>Tells you</b><p>A live queue number — no ballot, no waiting.</p></div>
         <div class="field"><b>You decide</b><p>Whether you can book tomorrow, since there's no runway.</p></div>
-        <a class="mode-link" href="https://homes.hdb.gov.sg/home/landing" target="_blank" rel="noopener">View open booking listings ↗</a>
+        <a class="mode-link" href="https://homes.hdb.gov.sg/home/landing" target="_blank" rel="noopener">View open booking listings</a>
       </div>
 
       <div class="mode-card" style="--accent:var(--slate);--accent-bg:var(--slate-bg);">
@@ -432,7 +447,7 @@
         <div class="field"><b>What it is</b><p>Bought directly from an existing owner, via an OTP.</p></div>
         <div class="field"><b>Tells you</b><p>Asking price, and whether cash-over-valuation applies.</p></div>
         <div class="field"><b>You decide</b><p>What to offer, and whether to exercise the option.</p></div>
-        <a class="mode-link" href="https://homes.hdb.gov.sg/home/landing" target="_blank" rel="noopener">View current resale listings ↗</a>
+        <a class="mode-link" href="https://homes.hdb.gov.sg/home/landing" target="_blank" rel="noopener">View current resale listings</a>
       </div>
 
     </div>
@@ -456,11 +471,11 @@
 
     <div class="notes-row">
       <div class="note-card">
-        <div class="note-card-head"><b>Family and Parenthood Priority Scheme (FPPS) — first priority</b><a class="mini-link" href="https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application/priority-schemes" target="_blank" rel="noopener">More schemes ↗</a></div>
+        <div class="note-card-head"><b>Family and Parenthood Priority Scheme (FPPS) — first priority</b><a class="mini-link" href="https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application/priority-schemes" target="_blank" rel="noopener">More schemes</a></div>
         The front-of-queue boost for 4-room-or-smaller only applies in <b>Standard</b>. Plus and Prime still get the 40% quota, just not first pick within it.
       </div>
       <div class="note-card">
-        <div class="note-card-head"><b>Family Care Scheme (FCS) (Proximity) quota</b><a class="mini-link" href="https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application/priority-schemes" target="_blank" rel="noopener">More schemes ↗</a></div>
+        <div class="note-card-head"><b>Family Care Scheme (FCS) (Proximity) quota</b><a class="mini-link" href="https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application/priority-schemes" target="_blank" rel="noopener">More schemes</a></div>
         30% for first-timers in Standard and Plus, dropping to <b>20% in Prime</b>. Plus costs you nothing here; Prime does.
       </div>
     </div>
