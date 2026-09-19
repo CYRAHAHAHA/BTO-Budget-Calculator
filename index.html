@@ -118,13 +118,14 @@
   .modes-grid{
     display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;
   }
+  @media (min-width:1200px){#modes{margin-inline:-72px;}}
   @media (max-width:860px){.modes-grid{grid-template-columns:repeat(2,1fr);}}
   @media (max-width:520px){.modes-grid{grid-template-columns:1fr;}}
   .mode-card{
     background:var(--surface);
     border:1px solid var(--line);
     border-top:5px solid var(--accent);
-    padding:26px 22px 28px;
+    padding:26px 14px 28px;
     display:flex;flex-direction:column;gap:15px;
   }
   .mode-card .icon-badge{
