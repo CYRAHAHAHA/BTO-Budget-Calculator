@@ -312,6 +312,12 @@
     width:100%;border:1px solid var(--line);background:var(--bg);color:var(--ink);
     padding:13px;font-family:'IBM Plex Sans';font-size:1.04rem;
   }
+  .range-line{display:flex;align-items:center;gap:12px;}
+  .field-group input[type=range]{flex:1;accent-color:var(--teal);min-width:0;}
+  .range-value{font-family:'IBM Plex Mono',monospace;font-size:1rem;color:var(--ink);min-width:4.4ch;text-align:right;}
+  .range-scale{display:flex;justify-content:space-between;gap:8px;margin-top:5px;color:var(--ink-soft);font-family:'IBM Plex Mono',monospace;font-size:0.68rem;}
+  .range-scale span:nth-child(2){color:var(--teal);}
+  .hint.warn.ltv-warn{color:var(--rust);font-family:'IBM Plex Sans',system-ui,sans-serif;}
   .out-row{display:flex;justify-content:space-between;align-items:baseline;padding:13px 0;border-bottom:1px solid var(--line);}
   .out-row:last-of-type{border-bottom:none;}
   .out-row .label{font-size:0.98rem;color:var(--ink-soft);}
@@ -575,7 +581,7 @@
     </div>
 
     <div class="callout">
-      Everything below assumes the <b>HDB Concessionary Loan</b>. Use the LTV slider to choose how much of the flat price is financed; 75% is the current maximum HDB housing-loan assumption. The rate is pegged 0.1% above the CPF OA rate, with no lock-in. Confirm the live rate on HDB's site before relying on it.
+      Everything below assumes the <b>HDB Concessionary Loan</b> — up to 80% LTV, rate pegged 0.1% above the CPF OA rate, no lock-in. Confirm the live rate on HDB's site before relying on it.
     </div>
 
     <div class="preflight">
@@ -598,24 +604,23 @@
           <div class="input-row"><span class="prefix">S$</span><input type="number" id="price" value="450000" min="0" step="1000"></div>
         </div>
         <div class="field-group">
-          <label for="ltv">Loan-to-value (LTV)</label>
-          <div class="range-row">
-            <input type="range" id="ltv" value="75" min="0" max="75" step="5" aria-describedby="ltv-hint">
-            <output class="range-value" id="ltv-value" for="ltv">75%</output>
-          </div>
-          <div class="hint note" id="ltv-hint">Choose the share financed by the HDB loan. 75% is the current maximum assumption.</div>
-        </div>
-        <div class="field-group">
           <label for="income">Combined monthly household income</label>
           <div class="input-row"><span class="prefix">S$</span><input type="number" id="income" value="4200" min="0" step="100"></div>
           <div class="hint" id="ehg-hint">→ EHG: —</div>
           <div class="hint note">HDB uses income averaged over the months you worked in a past 12-month window, so the figure can sit well below what you will earn later, for example as a recent graduate. See step 2 of the working.</div>
         </div>
         <div class="field-group">
+          <label for="ltv">Loan-to-value (LTV) assumption</label>
+          <div class="range-line"><input type="range" id="ltv" min="0" max="80" step="1" value="80"><output class="range-value" id="ltv-value" for="ltv">80%</output></div>
+          <div class="range-scale"><span>0%</span><span>80% HDB max</span><span>80%</span></div>
+          <div class="hint note">HDB loans can be sized up to 80% LTV under the assumption used here. A lower setting models a larger CPF/cash down payment; your HFE letter confirms the actual loan quantum.</div>
+          <div class="hint warn ltv-warn" id="ltv-hint" hidden></div>
+        </div>
+        <div class="field-group">
           <label id="oa-in-label">CPF going into your OA each month (calculated)</label>
           <div class="readout" role="group" aria-labelledby="oa-in-label">
             <div class="ro-row"><span class="ro-lbl">Years 1 to 10</span><output id="oa-in-early" for="income">—</output></div>
-            <div class="ro-row"><span class="ro-lbl">Year 11 onwards</span><output id="oa-in-late" for="income">—</output></div>
+            <div class="ro-row"><span class="ro-lbl">Year 11 onwards (36 to 45yo)</span><output id="oa-in-late" for="income">—</output></div>
           </div>
           <div class="hint note">Worked out from the household income above: 37% goes to CPF, and the OA gets 62.17% of that, then 56.77%.</div>
         </div>
@@ -635,8 +640,8 @@
         </div>
       </div>
       <div class="outputs">
-        <div class="out-row"><span class="label" id="out-loan-label">HDB loan (75% LTV)</span><span class="value mono" id="out-loan">—</span></div>
-        <div class="out-row"><span class="label" id="out-down-label">Down payment (25%)</span><span class="value mono" id="out-down">—</span></div>
+        <div class="out-row"><span class="label" id="out-loan-label">HDB loan (80% LTV)</span><span class="value mono" id="out-loan">—</span></div>
+        <div class="out-row"><span class="label" id="out-down-label">Down payment (20%)</span><span class="value mono" id="out-down">—</span></div>
         <div class="out-row"><span class="label">EHG applied to down payment</span><span class="value mono" id="out-grant">—</span></div>
         <div class="out-row"><span class="label">Buyer's Stamp Duty</span><span class="value mono" id="out-bsd">—</span></div>
         <div class="out-row"><span class="label">Est. monthly instalment</span><span class="value mono" id="out-monthly">—</span></div>
@@ -651,7 +656,7 @@
           <div class="out-row cash"><span class="label">Cash at purchase</span><span class="value mono" id="out-cash-purchase">—</span></div>
           <div class="out-subtitle">Monthly cash top-up</div>
           <div class="out-row cash"><span class="label">Years 1 to 10</span><span class="value mono" id="out-cash-early">—</span></div>
-          <div class="out-row cash"><span class="label">Year 11 onwards</span><span class="value mono" id="out-cash-late">—</span></div>
+          <div class="out-row cash"><span class="label">Year 11 onwards (36 to 45yo)</span><span class="value mono" id="out-cash-late">—</span></div>
         </div>
         <p class="out-foot">Assumes your CPF is 37% of household income (20% you, 17% employer), with the OA getting 62.17% of it for the first 10 years and 56.77% after. Cash at purchase leaves out the option fee, which is always cash, and the other costs listed below.</p>
       </div>
@@ -906,6 +911,7 @@
 
 <script>
 // ---- Assumptions (each is explained, with its source, in "Show the working") ----
+const MAX_LTV = 0.80;          // HDB loan LTV ceiling used by this calculator
 const HDB_RATE = 2.6;         // HDB concessionary rate, % a year (CPF OA rate + 0.1%)
 const ASSESS_RATE = 3.0;      // interest-rate floor HDB uses when assessing loan eligibility, % a year
 const MSR_CAP = 0.30;         // monthly instalment cap as a share of gross monthly household income
@@ -1026,7 +1032,7 @@ function renderWorking(s){
   $('w-loan').innerHTML =
     eq(`Loan = price × ${Math.round(ltv*100)}% = ${fmt(price)} × ${ltv.toFixed(2)} = ${strong(fmt(loan))}`) +
     eq(`Down payment = price × ${Math.round((1-ltv)*100)}% = ${fmt(price)} × ${(1-ltv).toFixed(2)} = ${strong(fmt(downPayment))}`) +
-    `<p class="calc-note">${Math.round(ltv*100)}% is the selected loan-to-value ratio. HDB's current maximum assumption is 75%; the other ${Math.round((1-ltv)*100)}% comes from CPF, cash or grants. Source: ${LINK.mnd}.</p>`;
+    `<p class="calc-note">The selected LTV is ${Math.round(ltv*100)}%, up to the ${Math.round(MAX_LTV*100)}% ceiling used here. The other ${Math.round((1-ltv)*100)}% comes from CPF, cash or grants. Your HFE letter confirms the actual loan quantum. Source: ${LINK.mnd}.</p>`;
 
   // 2. EHG lookup
   const band = ehgBand(income);
@@ -1124,7 +1130,7 @@ function renderWorking(s){
         ? `<span class="pill ok">WITHIN THE ${Math.round(MSR_CAP*100)}% CAP</span>`
         : `<span class="pill warn">ABOVE THE ${Math.round(MSR_CAP*100)}% CAP</span>`) +
       eq(`Largest loan the cap allows (at ${ASSESS_RATE.toFixed(1)}%, ${tHdb} years) = ${strong(fmt(maxL))}`) +
-      (ok ? '' : `<p>Your planned loan is ${strong(fmt(loan - maxL))} above that, so under these rules HDB would likely lend less than ${Math.round(ltv*100)}% of the price and you would need to cover the difference in cash or CPF.</p>`) +
+      (ok ? '' : `<p>Your planned loan is ${strong(fmt(loan - maxL))} above that, so under these rules HDB would likely lend less than the selected ${Math.round(ltv*100)}% of the price and you would need to cover the difference in cash or CPF.</p>`) +
       `<p class="calc-note">Indicative only. Your HFE letter states the actual loan amount HDB will offer, which also depends on age, other debts and the flat's remaining lease. Source: ${LINK.mnd}.</p>`;
   }
   $('w-msr').innerHTML = msr;
@@ -1163,9 +1169,9 @@ function renderRunway({oaBalance, oaEarly, cashNeeded}){
 function recompute(){
   const price = parseFloat($('price').value) || 0;
   const income = parseFloat($('income').value) || 0;
+  const ltv = Math.min(Math.max(parseFloat($('ltv').value) / 100 || 0, 0), MAX_LTV);
   const years = parseInt($('tenure').value, 10);
   const oaBalance = Math.max(parseFloat($('oa-balance').value) || 0, 0);
-  const ltv = Math.max(0, Math.min(parseFloat($('ltv').value) || 0, 75)) / 100;
 
   const grant = computeEHG(income);
   const loan = price * ltv;
@@ -1193,6 +1199,7 @@ function recompute(){
   $('ltv-value').textContent = Math.round(ltv * 100) + '%';
   $('out-loan-label').textContent = `HDB loan (${Math.round(ltv * 100)}% LTV)`;
   $('out-down-label').textContent = `Down payment (${Math.round((1 - ltv) * 100)}%)`;
+  $('ltv-hint').hidden = true;
   $('out-loan').textContent = fmt(loan);
   $('out-down').textContent = fmt(downPayment);
   $('out-grant').textContent = '– ' + fmt(grantApplied);
