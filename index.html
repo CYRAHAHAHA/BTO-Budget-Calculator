@@ -592,7 +592,7 @@
     </div>
 
     <div class="callout">
-      Everything below assumes the <b>HDB Concessionary Loan</b> — up to 80% LTV, rate pegged 0.1% above the CPF OA rate, no lock-in. Confirm the live rate on HDB's site before relying on it.
+      Everything below assumes the <b>HDB Concessionary Loan</b> — up to 75% LTV, rate pegged 0.1% above the CPF OA rate, no lock-in. Confirm the live rate on HDB's site before relying on it.
     </div>
 
     <div class="preflight">
@@ -622,9 +622,9 @@
         </div>
         <div class="field-group">
           <label for="ltv">Loan-to-value (LTV) assumption</label>
-          <div class="range-line"><input type="range" id="ltv" min="0" max="80" step="1" value="80"><output class="range-value" id="ltv-value" for="ltv">80%</output></div>
-          <div class="range-scale"><span>0%</span><span>80% HDB max</span><span>80%</span></div>
-          <div class="hint note">HDB loans can be sized up to 80% LTV under the assumption used here. A lower setting models a larger CPF/cash down payment; your HFE letter confirms the actual loan quantum.</div>
+          <div class="range-line"><input type="range" id="ltv" min="0" max="75" step="1" value="75"><output class="range-value" id="ltv-value" for="ltv">75%</output></div>
+          <div class="range-scale"><span>0%</span><span>75% HDB max</span><span>75%</span></div>
+          <div class="hint note">HDB loans can be sized up to 75% LTV under the current legal limit. A lower setting models a larger CPF/cash down payment; your HFE letter confirms the actual loan quantum.</div>
           <div class="hint warn ltv-warn" id="ltv-hint" hidden></div>
         </div>
         <div class="field-group">
@@ -651,8 +651,8 @@
         </div>
       </div>
       <div class="outputs">
-        <div class="out-row"><span class="label" id="out-loan-label">HDB loan (80% LTV)</span><span class="value mono" id="out-loan">—</span></div>
-        <div class="out-row"><span class="label" id="out-down-label">Down payment (20%)</span><span class="value mono" id="out-down">—</span></div>
+        <div class="out-row"><span class="label" id="out-loan-label">HDB loan (75% LTV)</span><span class="value mono" id="out-loan">—</span></div>
+        <div class="out-row"><span class="label" id="out-down-label">Down payment (25%)</span><span class="value mono" id="out-down">—</span></div>
         <div class="out-row"><span class="label">EHG applied to down payment</span><span class="value mono" id="out-grant">—</span></div>
         <div class="out-row"><span class="label">Buyer's Stamp Duty</span><span class="value mono" id="out-bsd">—</span></div>
         <div class="out-row"><span class="label">Est. monthly instalment</span><span class="value mono" id="out-monthly">—</span></div>
@@ -938,7 +938,7 @@
 
 <script>
 // ---- Assumptions (each is explained, with its source, in "Show the working") ----
-const MAX_LTV = 0.80;          // HDB loan LTV ceiling used by this calculator
+const MAX_LTV = 0.75;          // Current legal HDB housing-loan LTV ceiling
 const HDB_RATE = 2.6;         // HDB concessionary rate, % a year (CPF OA rate + 0.1%)
 const ASSESS_RATE = 3.0;      // interest-rate floor HDB uses when assessing loan eligibility, % a year
 const MSR_CAP = 0.30;         // monthly instalment cap as a share of gross monthly household income
@@ -1059,7 +1059,7 @@ function renderWorking(s){
   $('w-loan').innerHTML =
     eq(`Loan = price × ${Math.round(ltv*100)}% = ${fmt(price)} × ${ltv.toFixed(2)} = ${strong(fmt(loan))}`) +
     eq(`Down payment = price × ${Math.round((1-ltv)*100)}% = ${fmt(price)} × ${(1-ltv).toFixed(2)} = ${strong(fmt(downPayment))}`) +
-    `<p class="calc-note">The selected LTV is ${Math.round(ltv*100)}%, up to the ${Math.round(MAX_LTV*100)}% ceiling used here. The other ${Math.round((1-ltv)*100)}% comes from CPF, cash or grants. Your HFE letter confirms the actual loan quantum. Source: ${LINK.mnd}.</p>`;
+    `<p class="calc-note">The selected LTV is ${Math.round(ltv*100)}%, up to the current legal HDB maximum of ${Math.round(MAX_LTV*100)}%. The other ${Math.round((1-ltv)*100)}% comes from CPF, cash or grants. Your HFE letter confirms the actual loan quantum. Source: ${LINK.mnd}.</p>`;
 
   // 2. EHG lookup
   const band = ehgBand(income);

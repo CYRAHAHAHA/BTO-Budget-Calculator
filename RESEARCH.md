@@ -6,8 +6,8 @@ This file records the product decisions and source assumptions behind the calcul
 
 ## Loan and budget assumptions
 
-- LTV is user-configurable with a slider from 0% to 80%; the default is 80%, per the project decision. Loan = flat price × selected LTV. Down payment = flat price × (1 − selected LTV).
-- The calculator labels 80% as the ceiling used here. The HFE letter is the authority for each household’s actual loan quantum; age, lease, income, and other debts can reduce it.
+- LTV is user-configurable with a slider from 0% to 75%; the legal-mode default is 75%. Loan = flat price × selected LTV. Down payment = flat price × (1 − selected LTV).
+- The calculator labels 75% as the current legal HDB housing-loan ceiling. The HFE letter is the authority for each household’s actual loan quantum; age, lease, income, and other debts can reduce it.
 - HDB concessionary interest rate: 2.6% annually in the current source period, described as 0.1% above CPF OA interest.
 - MSR check: 30% of gross monthly household income, stress-tested at 3.0% over no more than 25 years.
 - Buyer’s Stamp Duty uses the residential tier schedule in the calculator and should be checked against IRAS before relying on an estimate.
