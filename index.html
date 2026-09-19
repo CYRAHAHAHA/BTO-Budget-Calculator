@@ -249,6 +249,13 @@
   .sbf-quick-card h4{font-family:'Archivo';font-size:0.92rem;margin:0 0 7px;}
   .sbf-quick-card p{margin:0;color:var(--ink-soft);font-size:0.78rem;line-height:1.4;}
   .sbf-quick-card .range{display:block;margin-top:8px;font-family:'IBM Plex Mono',monospace;color:var(--ink);font-size:0.82rem;}
+  .sbf-exercise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 22px;}
+  @media (max-width:720px){.sbf-exercise-grid{grid-template-columns:1fr;}}
+  .sbf-exercise-card{background:var(--surface);border:1px solid var(--line);padding:14px 15px;}
+  .sbf-exercise-card .eyebrow{display:block;margin-bottom:7px;color:var(--teal);font-family:'IBM Plex Mono',monospace;font-size:0.7rem;}
+  .sbf-exercise-card h4{margin:0 0 7px;font-family:'Archivo';font-size:1.04rem;}
+  .sbf-exercise-card p{margin:0;color:var(--ink-soft);font-size:0.8rem;line-height:1.45;}
+  .sbf-exercise-card a{display:inline-block;margin-top:9px;font-family:'IBM Plex Mono',monospace;font-size:0.72rem;}
 
   .preflight{
     display:flex;gap:0;margin-bottom:36px;border:1px solid var(--line);background:var(--surface);
@@ -808,6 +815,26 @@
       <div class="sbf-quick-card"><h4>3-room</h4><p>Smaller family option across non-mature, mature, and islandwide exercises.</p><span class="range">Before EHG: S$134k–289k</span></div>
       <div class="sbf-quick-card"><h4>4-room</h4><p>The broadest common family-size comparison.</p><span class="range">Before EHG: S$219k–370k</span></div>
       <div class="sbf-quick-card"><h4>5-room and larger</h4><p>Larger homes; 3Gen and Executive units appear in 2025–2026.</p><span class="range">Before EHG: S$341k–695k</span></div>
+    </div>
+    <div class="sbf-exercise-grid" aria-label="SBF exercise details">
+      <article class="sbf-exercise-card">
+        <span class="eyebrow">FEB 2024 EXERCISE</span>
+        <h4>1,588 flats offered</h4>
+        <p>Across various towns and estates. About 12% were completed; the rest were at different construction stages.</p>
+        <a href="https://www.hdb.gov.sg/hdb-pulse/news/2024/hdb-launches-5714-flats-in-feb-2024-bto-and-sbf-exercises" target="_blank" rel="noopener">Read HDB release</a>
+      </article>
+      <article class="sbf-exercise-card">
+        <span class="eyebrow">FEB 2025 EXERCISE</span>
+        <h4>5,590 flats offered</h4>
+        <p>Islandwide, in HDB's largest SBF exercise to date. Four in ten units were already completed.</p>
+        <a href="https://www.hdb.gov.sg/hdb-pulse/news/2025/hdb-launches-10622-flats-in-february-2025-bto-and-sbf-exercises" target="_blank" rel="noopener">Read HDB release</a>
+      </article>
+      <article class="sbf-exercise-card">
+        <span class="eyebrow">FEB 2026 EXERCISE</span>
+        <h4>4,320 flats offered</h4>
+        <p>Islandwide. Close to one in five units were already completed, with the rest in various construction stages.</p>
+        <a href="https://www.hdb.gov.sg/hdb-pulse/news/2026/hdb-launches-9012-flats-in-february-2026-bto-and-sbf-exercises" target="_blank" rel="noopener">Read HDB release</a>
+      </article>
     </div>
     <div class="sbf-controls" aria-label="Filter and sort SBF starting prices">
       <div class="sbf-control search">
