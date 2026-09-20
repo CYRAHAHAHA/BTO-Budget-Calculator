@@ -26,9 +26,11 @@ This file is the source of truth for durable product choices. Update it in the s
 
 ### BTO two-stage downpayment plan
 
-- The Budget section includes a **BTO-only** two-stage downpayment table. It is not a resale, SBF, or Open Booking payment schedule.
+- Budget has two switchable views beside its title: **General** is the default, single-purchase HDB-loan calculation; **BTO flat in 3 years** is the BTO-only staged plan. The visible calculation, total and working must match the selected view.
+- The BTO view is not a resale, SBF, or Open Booking payment schedule.
 - With an HDB loan, model the first instalment as 10% of the flat price at the Agreement for Lease and the remaining downpayment at key collection. The default planning horizon to key collection is three years.
-- Show current OA and cash needed for the first instalment, then subtract the first OA use and add 36 months of projected OA inflow for the second instalment. This lets users see why cash pressure can be front-loaded while later OA can help.
+- Buyer’s Stamp Duty (BSD) is due at the Agreement for Lease and belongs in the first BTO stage, alongside the first downpayment instalment. It is not deferred to key collection.
+- Show current OA and cash needed for the first instalment (including BSD), then subtract the first OA use and add 36 months of projected OA inflow for the second instalment. This lets users see why cash pressure can be front-loaded while later OA can help.
 - The calculator conservatively applies its estimated EHG to the second instalment at key collection. This is a planning convention only: the actual grant amount and timing are governed by the HFE letter and booking documents.
 - If the estimated grant is larger than the second instalment, do not use the excess to reduce the first-stage cash target. The calculator has no HFE or booking data to safely model when that excess is disbursed.
 - Do not subtract the option fee from the first instalment until the user has supplied a flat type; the option fee is labelled separately as part of the downpayment.

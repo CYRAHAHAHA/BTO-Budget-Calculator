@@ -357,6 +357,13 @@
   .out-row.total{margin-top:12px;padding-top:20px;border-top:2px solid var(--ink);border-bottom:none;}
   .out-row.total .label{color:var(--ink);font-weight:600;}
   .out-row.total .value{font-size:1.44rem;color:var(--brass);}
+  .budget-title{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+  .budget-mode-toggle{display:inline-flex;align-items:center;border:1px solid var(--line);padding:3px;background:var(--surface);}
+  .budget-mode-toggle button{appearance:none;border:0;background:transparent;color:var(--ink-soft);padding:7px 11px;font:600 0.72rem 'IBM Plex Mono',monospace;cursor:pointer;}
+  .budget-mode-toggle button[aria-pressed="true"]{background:var(--teal-bg);color:var(--teal);box-shadow:inset 0 0 0 1px var(--teal);}
+  .budget-mode-toggle button:focus-visible{outline:2px solid var(--brass);outline-offset:2px;}
+  #budget[data-budget-mode="general"] .bto-only,#budget[data-budget-mode="bto"] .general-only{display:none;}
+  @media (max-width:640px){.budget-title{gap:10px;}.budget-mode-toggle{width:100%;}.budget-mode-toggle button{flex:1;padding:8px 6px;font-size:0.66rem;}}
   .bto-payment-plan{margin:22px 0 0;padding:18px 0 0;border-top:2px solid var(--ink);}
   .bto-payment-plan h3{font:700 1.02rem 'Archivo',system-ui,sans-serif;margin:0 0 4px;}
   .bto-payment-plan > p{margin:0 0 12px;font-size:0.8rem;color:var(--ink-soft);line-height:1.45;}
@@ -645,9 +652,15 @@
   </section>
   </div>
 
-  <section id="budget">
+  <section id="budget" data-budget-mode="general">
     <div class="section-head">
-      <h2>Budget</h2>
+      <div class="budget-title">
+        <h2>Budget</h2>
+        <div class="budget-mode-toggle" role="group" aria-label="Budget calculation view">
+          <button type="button" data-budget-mode="general" aria-pressed="true">General</button>
+          <button type="button" data-budget-mode="bto" aria-pressed="false">BTO flat in 3 years</button>
+        </div>
+      </div>
       <span class="tally">HDB loan, assumed</span>
     </div>
 
@@ -713,38 +726,43 @@
       <div class="outputs">
         <div class="out-row"><span class="label" id="out-loan-label">HDB loan (75% LTV)</span><span class="value mono" id="out-loan">—</span></div>
         <div class="out-row"><span class="label" id="out-down-label">Down payment (25%)</span><span class="value mono" id="out-down">—</span></div>
-        <div class="out-row"><span class="label">EHG counted at second instalment*</span><span class="value mono" id="out-grant">—</span></div>
+        <div class="out-row"><span class="label" id="out-grant-label">EHG applied to down payment</span><span class="value mono" id="out-grant">—</span></div>
         <div class="out-row"><span class="label">Buyer's Stamp Duty</span><span class="value mono" id="out-bsd">—</span></div>
         <div class="out-row"><span class="label">Est. monthly instalment</span><span class="value mono" id="out-monthly">—</span></div>
         <div class="msr-alert" id="msr-alert" hidden>
           <span class="pill warn">ABOVE HDB'S 30% MSR CAP</span>
           <p id="msr-alert-text"></p>
         </div>
-        <div class="out-row total"><span class="label">Remaining down payment + BSD</span><span class="value mono" id="out-total">—</span></div>
-        <div class="bto-payment-plan" aria-labelledby="bto-payment-title">
+        <div class="out-row total"><span class="label" id="out-total-label">Cash/CPF needed at purchase</span><span class="value mono" id="out-total">—</span></div>
+        <div class="bto-payment-plan bto-only" aria-labelledby="bto-payment-title">
           <h3 id="bto-payment-title">BTO two-stage downpayment plan</h3>
-          <p>Assumes an uncompleted BTO, an HDB loan at the selected LTV, and key collection in 3 years. The option fee counts toward the first instalment but is not subtracted here because flat type is unknown.</p>
+          <p>Assumes an uncompleted BTO, an HDB loan at the selected LTV, and key collection in 3 years. BSD is due with the first instalment. The option fee counts toward that downpayment but is not subtracted here because flat type is unknown.</p>
           <div class="tbl-wrap">
             <table class="bto-payment-table">
-              <tr><th>When</th><th>Gross due</th><th>EHG counted*</th><th>OA available</th><th>OA used</th><th>Cash to prepare</th></tr>
-              <tr><td><b>First instalment</b><br>Agreement for Lease · now</td><td id="bto-first-due">—</td><td id="bto-first-grant">—</td><td id="bto-first-oa-available">—</td><td id="bto-first-oa-used">—</td><td class="cash" id="bto-first-cash">—</td></tr>
+              <tr><th>When</th><th>Due</th><th>EHG counted*</th><th>OA available</th><th>OA used</th><th>Cash to prepare</th></tr>
+              <tr><td><b>First instalment</b><br>Agreement for Lease · now<br><small>10% downpayment + BSD</small></td><td id="bto-first-due">—</td><td id="bto-first-grant">—</td><td id="bto-first-oa-available">—</td><td id="bto-first-oa-used">—</td><td class="cash" id="bto-first-cash">—</td></tr>
               <tr><td><b>Second instalment</b><br>Key collection · 3 years</td><td id="bto-second-due">—</td><td id="bto-second-grant">—</td><td id="bto-second-oa-available">—</td><td id="bto-second-oa-used">—</td><td class="cash" id="bto-second-cash">—</td></tr>
             </table>
           </div>
           <p class="bto-payment-note">*Planning assumption: the EHG shown by this calculator is applied to the second instalment at key collection. Your HFE letter and booking documents set the actual grant amount and disbursement timing.</p>
         </div>
         <div class="out-split">
+          <div class="general-only">
+            <div class="out-title">How much of that is your cash</div>
+            <div class="out-row"><span class="label">Paid from your OA at purchase</span><span class="value mono" id="out-oa-used">—</span></div>
+            <div class="out-row cash"><span class="label">Cash at purchase</span><span class="value mono" id="out-cash-purchase">—</span></div>
+          </div>
           <div class="out-subtitle">Monthly cash top-up</div>
           <div class="out-row cash"><span class="label">Years 1 to 10</span><span class="value mono" id="out-cash-early">—</span></div>
           <div class="out-row cash"><span class="label">Year 11 onwards (36 to 45yo)</span><span class="value mono" id="out-cash-late">—</span></div>
         </div>
-        <p class="out-foot">Assumes your CPF is 37% of household income (20% you, 17% employer), with the OA getting 62.17% of it for the first 10 years and 56.77% after. The table does not include BSD, legal fees, insurance or renovation; those remain separate costs.</p>
+        <p class="out-foot" id="out-foot">Assumes your CPF is 37% of household income (20% you, 17% employer), with the OA getting 62.17% of it for the first 10 years and 56.77% after. Cash at purchase leaves out the option fee, which is always cash, and the other costs listed below.</p>
       </div>
     </div>
 
-    <div class="oa-runway" aria-labelledby="runway-title">
+    <div class="oa-runway general-only" aria-labelledby="runway-title">
       <h3 id="runway-title">If you wait before buying</h3>
-      <p class="runway-note">Projected using the current combined CPF OA balance plus the calculated monthly OA inflow. This is an aggregate funding view; the BTO table above shows the two actual planning stages.</p>
+      <p class="runway-note" id="runway-note">Projected using the current combined CPF OA balance plus the calculated monthly OA inflow. Cash at purchase is the remaining amount after that projected OA balance.</p>
       <div class="runway-grid">
         <div class="runway-card"><h4>1Y / 12M</h4><dl><dt>Projected CPF OA</dt><dd id="runway-12-oa">—</dd><dt>Cash across plan</dt><dd id="runway-12-cash">—</dd></dl></div>
         <div class="runway-card"><h4>2Y / 24M</h4><dl><dt>Projected CPF OA</dt><dd id="runway-24-oa">—</dd><dt>Cash across plan</dt><dd id="runway-24-cash">—</dd></dl></div>
@@ -790,7 +808,7 @@
         </div>
 
         <div class="calc-step">
-          <h4><span class="n">4</span>Cash / CPF needed at purchase</h4>
+          <h4 id="w-cash-heading"><span class="n">4</span>Cash / CPF needed at purchase</h4>
           <div id="w-cash"></div>
         </div>
 
@@ -814,7 +832,7 @@
         </div>
 
         <div class="calc-step">
-          <h4><span class="n">8</span>Your CPF Ordinary Account vs cash</h4>
+          <h4 id="w-cpf-heading"><span class="n">8</span>Your CPF Ordinary Account vs cash</h4>
           <div id="w-cpf"></div>
           <div class="income-note">
             <h5>How CPF splits between two owners</h5>
@@ -1127,7 +1145,10 @@ const LINK = {
 };
 
 function renderWorking(s){
-  const {price, income, years, ltv, loan, downPayment, grant, grantApplied, btoPlan, bsd, monthly, cashNeeded, oaBalance, oaUsed, cashPurchase, oaLeft, cpfTotal, oaEarly, oaLate, topEarly, topLate, totalTop} = s;
+  const {mode, price, income, years, ltv, loan, downPayment, grant, generalGrantApplied, btoPlan, bsd, monthly, generalFundingNeeded, oaBalance, oaUsed, cashPurchase, oaLeft, cpfTotal, oaEarly, oaLate, topEarly, topLate, totalTop} = s;
+  const isBto = mode === 'bto';
+  const grantApplied = isBto ? btoPlan.secondGrant : generalGrantApplied;
+  const fundingNeeded = isBto ? btoPlan.firstCash + btoPlan.secondCash : generalFundingNeeded;
   const ids = ['w-loan','w-ehg','w-ehg-table','w-bsd','w-cash','w-pay','w-schedule','w-tenure','w-msr','w-cpf'];
 
   if (!(price > 0)){
@@ -1150,9 +1171,11 @@ function renderWorking(s){
     : `Your household income of ${fmt(income)} is above the ${fmt(ceiling)} ceiling, so there is no EHG.`;
   $('w-ehg').innerHTML =
     `<p>${bandLine}</p>` +
-    eq(`Counted at second BTO instalment = min(EHG, second instalment) = min(${fmt(grant)}, ${fmt(btoPlan.secondDue)}) = ${strong(fmt(grantApplied))}`) +
+    (isBto
+      ? eq(`Counted at second BTO instalment = min(EHG, second instalment) = min(${fmt(grant)}, ${fmt(btoPlan.secondDue)}) = ${strong(fmt(grantApplied))}`)
+      : eq(`Applied to down payment = min(EHG, down payment) = min(${fmt(grant)}, ${fmt(downPayment)}) = ${strong(fmt(grantApplied))}`)) +
     eq(`Down payment still to fund = ${fmt(downPayment)} − ${fmt(grantApplied)} = ${strong(fmt(downPayment - grantApplied))}`) +
-    `<p class="calc-note">"Income" here is the gross monthly income of everyone listed in the application, averaged over the months worked in a 12-month window that ends 2 months before the month you apply for the HFE letter (see the note below). The table assumes both applicants are first-timers; with one second-timer, the ceiling halves to ${fmt(ceiling/2)} and the amounts are lower. The BTO timing convention above is only a planning view; your HFE letter confirms the real grant amount and timing. Sources: ${LINK.ehg}, ${LINK.cpf}.</p>`;
+    `<p class="calc-note">"Income" here is the gross monthly income of everyone listed in the application, averaged over the months worked in a 12-month window that ends 2 months before the month you apply for the HFE letter (see the note below). The table assumes both applicants are first-timers; with one second-timer, the ceiling halves to ${fmt(ceiling/2)} and the amounts are lower.${isBto ? ' The BTO timing convention above is only a planning view; your HFE letter confirms the real grant amount and timing.' : ' This general view treats the grant as reducing your down payment; your HFE letter confirms the real amount.'} Sources: ${LINK.ehg}, ${LINK.cpf}.</p>`;
 
   let prev = 0, ehgRows = '';
   EHG_TIERS.forEach(([maxInc, amt], i) => {
@@ -1173,11 +1196,19 @@ function renderWorking(s){
     `<div class="tbl-wrap"><table class="calc-table"><tr><th>Slice of price</th><th class="num">Amount in slice</th><th class="num">Rate</th><th class="num">Duty</th></tr>${bsdRows}<tr class="tot"><td colspan="3">Buyer's Stamp Duty</td><td class="num">${fmt(bsd)}</td></tr></table></div>` +
     `<p class="calc-note">Residential rates for purchases on or after 15 Feb 2023. IRAS applies them to the higher of the purchase price and market value, and rounds down to the whole dollar; this page uses the price you enter. Source: ${LINK.iras}.</p>`;
 
-  // 4. Aggregate funding requirement; the BTO table is the timing-specific view.
-  $('w-cash').innerHTML =
-    eq(`Funding needed = (down payment − grant counted) + BSD`) +
-    eq(`= (${fmt(downPayment)} − ${fmt(grantApplied)}) + ${fmt(bsd)} = ${strong(fmt(cashNeeded))}`) +
-    `<p class="calc-note">This is the aggregate amount; the BTO table above shows the first and second downpayment stages. It leaves out the option fee, legal fees and the other costs listed under the calculator.</p>`;
+  // 4. General purchase funding or BTO timing-specific funding.
+  $('w-cash-heading').innerHTML = isBto
+    ? '<span class="n">4</span>BTO payment stages'
+    : '<span class="n">4</span>Cash / CPF needed at purchase';
+  $('w-cash').innerHTML = isBto
+    ? eq(`First stage due now = 10% down payment + BSD = ${fmt(btoPlan.firstDownPayment)} + ${fmt(bsd)} = ${strong(fmt(btoPlan.firstDue))}`) +
+      eq(`First-stage cash = ${fmt(btoPlan.firstDue)} − OA used ${fmt(btoPlan.firstOaUsed)} = ${strong(fmt(btoPlan.firstCash))}`) +
+      eq(`Second stage after 3 years = ${fmt(btoPlan.secondDue)} − EHG ${fmt(btoPlan.secondGrant)} − projected OA ${fmt(btoPlan.secondOaUsed)} = ${strong(fmt(btoPlan.secondCash))}`) +
+      eq(`Cash to prepare across both stages = ${fmt(btoPlan.firstCash)} + ${fmt(btoPlan.secondCash)} = ${strong(fmt(fundingNeeded))}`) +
+      `<p class="calc-note">BSD is placed in the first stage because HDB requires stamp duty when you sign the Agreement for Lease. The option fee, legal fees and other costs are not included.</p>`
+    : eq(`Cash/CPF needed = (down payment − grant applied) + BSD`) +
+      eq(`= (${fmt(downPayment)} − ${fmt(grantApplied)}) + ${fmt(bsd)} = ${strong(fmt(fundingNeeded))}`) +
+      `<p class="calc-note">This leaves out the option fee, legal fees and the other costs listed under the calculator.</p>`;
 
   // 5. Monthly instalment
   const r = HDB_RATE/100/12, n = years*12, f = Math.pow(1 + r, n);
@@ -1249,11 +1280,20 @@ function renderWorking(s){
   const lateMonths = nMonths - earlyMonths;
   const pc = x => (x*100).toFixed(2) + '%';
   const shareRows = OA_SHARES.map(([lbl, sh]) => `<tr><td>${lbl}</td><td class="num">${pc(sh)}</td></tr>`).join('');
+  $('w-cpf-heading').innerHTML = isBto
+    ? '<span class="n">8</span>CPF OA across the two BTO stages'
+    : '<span class="n">8</span>Your CPF Ordinary Account vs cash';
+  const oaTiming = isBto
+    ? `<p><b>Across two stages.</b> Your current OA covers the first stage, including BSD. The calculator then adds 36 months of projected OA before applying it to the second-stage downpayment.</p>` +
+      eq(`Current OA used now = min(${fmt(oaBalance)}, ${fmt(btoPlan.firstDue)}) = ${strong(fmt(btoPlan.firstOaUsed))}`) +
+      eq(`OA available at key collection = (${fmt(oaBalance)} − ${fmt(btoPlan.firstOaUsed)}) + (${fmt2(oaEarly)} × 36) = ${strong(fmt(btoPlan.oaAtKeys))}`) +
+      eq(`OA used at second stage = min(${fmt(btoPlan.oaAtKeys)}, ${fmt(btoPlan.secondDue - btoPlan.secondGrant)}) = ${strong(fmt(btoPlan.secondOaUsed))}`)
+    : `<p><b>At purchase.</b> Your Ordinary Account (OA) can pay the down payment and stamp duty. Whatever it does not cover is cash.</p>` +
+      eq(`Paid from OA = min(OA balance, amount to fund) = min(${fmt(oaBalance)}, ${fmt(generalFundingNeeded)}) = ${strong(fmt(oaUsed))}`) +
+      eq(`Cash at purchase = ${fmt(generalFundingNeeded)} − ${fmt(oaUsed)} = ${strong(fmt(cashPurchase))}`) +
+      eq(`OA left after purchase = ${fmt(oaBalance)} − ${fmt(oaUsed)} = ${fmt(oaLeft)}`);
   $('w-cpf').innerHTML =
-    `<p><b>Aggregate reference.</b> Your Ordinary Account (OA) can pay the down payment and stamp duty. The BTO table above is the timing-specific cash/OA plan; this calculation treats the amount as one aggregate check.</p>` +
-    eq(`Paid from OA = min(OA balance, amount to fund) = min(${fmt(oaBalance)}, ${fmt(cashNeeded)}) = ${strong(fmt(oaUsed))}`) +
-    eq(`Aggregate cash to fund = ${fmt(cashNeeded)} − ${fmt(oaUsed)} = ${strong(fmt(cashPurchase))}`) +
-    eq(`OA left after aggregate check = ${fmt(oaBalance)} − ${fmt(oaUsed)} = ${fmt(oaLeft)}`) +
+    oaTiming +
     `<p><b>Each month.</b> Your CPF contributions are worked out from your household income: 20% from you and 17% from your employer, 37% in total. Only the OA part can pay the instalment; the rest goes to your Special and MediSave accounts. The OA share falls as you age, so this page assumes ${strong(pc(OA_SHARE_EARLY))} for the first ${EARLY_YEARS} years of the loan and ${strong(pc(OA_SHARE_LATE))} after that.</p>` +
     eq(`Total CPF per month = income × (20% + 17%) = ${fmt(income)} × ${CPF_TOTAL_RATE.toFixed(2)} = ${strong(fmt2(cpfTotal))}`) +
     eq(`OA inflow, years 1 to ${EARLY_YEARS} = ${fmt2(cpfTotal)} × ${OA_SHARE_EARLY} = ${strong(fmt2(oaEarly))}`) +
@@ -1274,9 +1314,10 @@ function renderRunway({oaBalance, oaEarly, cashNeeded}){
   });
 }
 
-function buildBtoPaymentPlan({price, downPayment, grant, oaBalance, oaEarly}){
-  const firstDue = Math.min(downPayment, price * 0.10);
-  const secondDue = Math.max(downPayment - firstDue, 0);
+function buildBtoPaymentPlan({price, downPayment, grant, bsd, oaBalance, oaEarly}){
+  const firstDownPayment = Math.min(downPayment, price * 0.10);
+  const firstDue = firstDownPayment + bsd;
+  const secondDue = Math.max(downPayment - firstDownPayment, 0);
   const firstOaUsed = Math.min(oaBalance, firstDue);
   const firstCash = Math.max(firstDue - firstOaUsed, 0);
   const oaAtKeys = Math.max(oaBalance - firstOaUsed, 0) + oaEarly * BTO_KEY_YEARS * 12;
@@ -1285,7 +1326,7 @@ function buildBtoPaymentPlan({price, downPayment, grant, oaBalance, oaEarly}){
   const secondOaUsed = Math.min(oaAtKeys, secondAfterGrant);
   const secondCash = Math.max(secondAfterGrant - secondOaUsed, 0);
 
-  return {firstDue, secondDue, firstOaAvailable: oaBalance, firstOaUsed, firstCash, oaAtKeys, secondGrant, secondOaUsed, secondCash};
+  return {firstDownPayment, firstDue, secondDue, firstOaAvailable: oaBalance, firstOaUsed, firstCash, oaAtKeys, secondGrant, secondOaUsed, secondCash};
 }
 
 function renderBtoPaymentPlan(plan){
@@ -1302,6 +1343,17 @@ function renderBtoPaymentPlan(plan){
   $('bto-second-cash').textContent = fmt(secondCash);
 }
 
+let budgetMode = 'general';
+
+function setBudgetMode(mode){
+  budgetMode = mode === 'bto' ? 'bto' : 'general';
+  $('budget').dataset.budgetMode = budgetMode;
+  document.querySelectorAll('[data-budget-mode]').forEach(button => {
+    if (button.tagName === 'BUTTON') button.setAttribute('aria-pressed', String(button.dataset.budgetMode === budgetMode));
+  });
+  recompute();
+}
+
 function recompute(){
   const price = parseFloat($('price').value) || 0;
   const income = parseFloat($('income').value) || 0;
@@ -1315,15 +1367,17 @@ function recompute(){
   const cpfTotal = income * CPF_TOTAL_RATE;
   const oaEarly = cpfTotal * OA_SHARE_EARLY;
   const oaLate = cpfTotal * OA_SHARE_LATE;
-  const btoPlan = buildBtoPaymentPlan({price, downPayment, grant, oaBalance, oaEarly});
-  const grantApplied = btoPlan.secondGrant;
   const bsd = computeBSD(price);
+  const generalGrantApplied = Math.min(grant, downPayment);
+  const generalFundingNeeded = Math.max(downPayment - generalGrantApplied, 0) + bsd;
+  const btoPlan = buildBtoPaymentPlan({price, downPayment, grant, bsd, oaBalance, oaEarly});
   const monthly = monthlyRepayment(loan, HDB_RATE, years);
-  const cashNeeded = Math.max(downPayment - grantApplied, 0) + bsd;
+  const isBto = budgetMode === 'bto';
+  const grantApplied = isBto ? btoPlan.secondGrant : generalGrantApplied;
+  const totalToPrepare = isBto ? btoPlan.firstCash + btoPlan.secondCash : generalFundingNeeded;
 
-  // Aggregate reference only; the BTO table above is the timing-specific plan.
-  const oaUsed = Math.min(oaBalance, cashNeeded);
-  const cashPurchase = cashNeeded - oaUsed;
+  const oaUsed = Math.min(oaBalance, generalFundingNeeded);
+  const cashPurchase = generalFundingNeeded - oaUsed;
   const oaLeft = oaBalance - oaUsed;
   const topEarly = Math.max(monthly - oaEarly, 0);
   const topLate = Math.max(monthly - oaLate, 0);
@@ -1340,16 +1394,24 @@ function recompute(){
   $('ltv-hint').hidden = true;
   $('out-loan').textContent = fmt(loan);
   $('out-down').textContent = fmt(downPayment);
+  $('out-grant-label').textContent = isBto ? 'EHG counted at second instalment*' : 'EHG applied to down payment';
   $('out-grant').textContent = '– ' + fmt(grantApplied);
   $('out-bsd').textContent = fmt(bsd);
   $('out-monthly').textContent = fmt(monthly) + ' / mo';
-  $('out-total').textContent = fmt(cashNeeded);
+  $('out-total-label').textContent = isBto ? 'Cash to prepare across 2 stages' : 'Cash/CPF needed at purchase';
+  $('out-total').textContent = fmt(totalToPrepare);
+  $('out-oa-used').textContent = '– ' + fmt(oaUsed);
+  $('out-cash-purchase').textContent = fmt(cashPurchase);
+  $('out-foot').textContent = isBto
+    ? 'The BTO table puts BSD in the first stage, then projects three years of OA for the second. It does not include the option fee, legal fees, insurance or renovation.'
+    : 'Assumes your CPF is 37% of household income (20% you, 17% employer), with the OA getting 62.17% of it for the first 10 years and 56.77% after. Cash at purchase leaves out the option fee, which is always cash, and the other costs listed below.';
+  $('runway-note').textContent = 'Projected using the current combined CPF OA balance plus the calculated monthly OA inflow. Cash at purchase is the remaining amount after that projected OA balance.';
   renderBtoPaymentPlan(btoPlan);
   $('oa-in-early').textContent = fmt(oaEarly) + ' / mo';
   $('oa-in-late').textContent = fmt(oaLate) + ' / mo';
   $('out-cash-early').textContent = fmt(topEarly) + ' / mo';
   $('out-cash-late').textContent = fmt(topLate) + ' / mo';
-  renderRunway({oaBalance, oaEarly, cashNeeded});
+  renderRunway({oaBalance, oaEarly, cashNeeded: generalFundingNeeded});
 
   const hint = $('tenure-hint');
   if (years > HDB_MAX_TENURE){
@@ -1372,9 +1434,12 @@ function recompute(){
     msrAlert.hidden = true;
   }
 
-  renderWorking({price, income, years, ltv, loan, downPayment, grant, grantApplied, btoPlan, bsd, monthly, cashNeeded, oaBalance, oaUsed, cashPurchase, oaLeft, cpfTotal, oaEarly, oaLate, topEarly, topLate, totalTop});
+  renderWorking({mode: budgetMode, price, income, years, ltv, loan, downPayment, grant, generalGrantApplied, btoPlan, bsd, monthly, generalFundingNeeded, oaBalance, oaUsed, cashPurchase, oaLeft, cpfTotal, oaEarly, oaLate, topEarly, topLate, totalTop});
 }
 ['price','income','ltv','tenure','oa-balance'].forEach(id => $(id).addEventListener('input', recompute));
+document.querySelectorAll('.budget-mode-toggle [data-budget-mode]').forEach(button => {
+  button.addEventListener('click', () => setBudgetMode(button.dataset.budgetMode));
+});
 document.querySelectorAll('[data-price-filter]').forEach(button => {
   button.addEventListener('click', () => {
     const filter = button.dataset.priceFilter;
