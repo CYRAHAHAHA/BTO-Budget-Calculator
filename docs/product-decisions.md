@@ -24,11 +24,13 @@ This file is the source of truth for durable product choices. Update it in the s
 - Make Budget the first substantive section after the hero. The background material is collapsed by default behind the centred divider-toggle labelled `Some background information on home purchase for the normie` and exposes a plus/minus state.
 - The collapsed background group contains Modes of sale, Standard/Plus/Prime, Exercise timeline, Staying on top of it, and a short plain-English Loans and HFE + EHG explainer. HFE must be expanded as HDB Flat Eligibility and EHG as Enhanced CPF Housing Grant.
 
-## SBF starting-price section
+## SBF price explorer
 
-- Keep the price table filterable by exercise and flat type, searchable by area or flat type, and sortable by before/after-EHG starting price.
-- Keep a reset control and a visible matching-row count.
-- Show per-exercise context above the table: units offered, coverage, completed-unit share, and direct links to the official HDB release.
-- Treat the price table as a starting-price comparison. Exact block, unit availability, remaining lease, and live application rates must be sourced from the HDB Flat Portal for the relevant exercise; do not infer them from starting prices.
-- Include a clearly dated town-level snapshot when a reliable exercise-level record is available. It should identify the exercise, towns/estates, and useful supply concentrations, and link readers to the live HDB Flat Portal for the current block, unit, lease, price, completion-stage, and ethnic-quota details.
-- Historical town data must never be labelled as live availability or used to predict the next SBF exercise.
+- The primary SBF question is: **what did a flat of this type start from in this town?** The explorer therefore prioritises a dated, town-level historic snapshot over an islandwide aggregate price table.
+- The current reference is February 2026, the latest SBF exercise for which we captured town-level listings. The table must include a town/estate column, flat type, classification where published, and the historical starting price. It is filterable by town and flat type, searchable, sortable, resettable, and shows a matching-row count.
+- Use the official HDB launch release for the exercise-level count and price context. If detailed historical town rows rely on a preserved secondary record, identify it as such and link it. Do not present those rows as a live HDB inventory.
+- EHG is **not** an SBF or town-specific discount. HDB determines a household's actual eligibility, CPF housing grant amount and HDB loan amount through its HFE (HDB Flat Eligibility) letter, for both BTO and SBF. Static “after EHG” release examples must not be implied to apply to every reader.
+- The explorer may show “after your estimated EHG” only as a calculator scenario based on the income input, with a prominent note that the HFE letter controls the actual grant, loan and eligibility.
+- Explain that SBF financing is broadly the same as BTO: a valid HFE is required before applying, and the chosen HDB/FI loan rules apply. State the material SBF difference: older or completed balance units can have a shorter remaining lease, which can reduce CPF use or loan amount; exact lease and stock are checked in the Flat Portal.
+- HDB's public process calls for signing the Agreement for Lease within nine months of booking. A completed SBF flat can reach key collection within that window. Keep this timing separate from a BTO construction estimate.
+- Historical town data must never be used to predict the next SBF exercise. Exact current block, unit availability, remaining lease, price, completion stage, application rates and ethnic quota must be checked in the HDB Flat Portal.

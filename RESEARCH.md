@@ -29,7 +29,16 @@ Primary loan reference: [MND written answer on HDB loan considerations and quant
 - [HDB June 2026 BTO release](https://www.hdb.gov.sg/hdb-pulse/news/2026/hdb-launches-6952-flats-across-7-projects-in-june-2026-bto-sales-exercise)
 - [HDB Flat Portal](https://homes.hdb.gov.sg/home/landing) is the live source for current listings, exact SBF town/block, remaining lease, and availability.
 
-The SBF table intentionally shows official starting prices by exercise and flat type. The release tables do not provide a stable town/block price map; exact locations change per exercise and should be checked in the Flat Portal.
+The SBF explorer intentionally uses a dated February 2026 town-level snapshot rather than treating exercise-wide price ranges as a location guide. HDB's release confirms 4,320 SBF units and the official islandwide starting-price table; the preserved historical listing used for individual town rows is [99.co's February 2026 SBF table](https://www.99.co/singapore/insider/sale-of-balance-flats-hdb/), which attributes its listing to HDB. It is not live inventory.
+
+### SBF, HFE and EHG
+
+- SBF does **not** use a separate EHG or HDB-loan rule from BTO. HDB says the HFE letter tells a buyer their eligibility to buy a new or resale flat, CPF housing grants, and HDB housing loan, including the respective grant and loan amounts. A valid HFE letter is required to apply in an SBF sales exercise.
+- HDB's “after EHG” launch-table prices are illustrative examples based on the maximum relevant grant, not an entitlement for every SBF buyer or a town-specific discount. The UI therefore calculates an explicitly labelled estimate from the calculator's income input and directs users to their HFE for the actual result.
+- The meaningful SBF difference is the specific stock. A balance unit can be completed, still under construction, or have a remaining lease. HDB directs buyers to its Flat Portal for the remaining lease of each block; a shorter lease can affect CPF use and the loan quantum.
+- HDB's new-flat process requires buyers to sign the Agreement for Lease within nine months after booking. HDB says a completed flat can be signed for and have its keys collected within that nine-month period.
+
+Primary references: [HDB February 2026 release](https://www.hdb.gov.sg/hdb-pulse/news/2026/hdb-launches-9012-flats-in-february-2026-bto-and-sbf-exercises), [HDB application process](https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/application), [HDB key collection](https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/key-collection), and [HDB Flat Portal](https://homes.hdb.gov.sg/home/landing).
 
 ## Classification glossary
 
