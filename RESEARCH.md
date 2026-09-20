@@ -21,6 +21,15 @@ Primary loan reference: [MND written answer on HDB loan considerations and quant
 - The 1Y/2Y/3Y/4Y/5Y cards add the early OA inflow × months to the current combined OA balance, then show the remaining cash needed at purchase.
 - EHG bands are the first-timer household table effective 20 August 2024. Actual eligibility and grant amount come from the HFE letter.
 
+### BTO two-stage downpayment planning
+
+- The calculator's BTO-only payment table assumes an uncompleted flat reaches key collection in three years. HDB says buyers of an uncompleted flat can pay the downpayment in two instalments under the Staggered Downpayment Scheme: the first at signing the Agreement for Lease and the balance at key collection.
+- For an HDB loan, current HDB sales-exercise administrative details state that 10% of the flat price is payable when signing the Agreement for Lease; the balance purchase price is payable at key collection. With the calculator's 75% HDB-LTV assumption, this means the other 15% of the price remains in the downpayment/balance plan.
+- The table deducts the current OA used for the first stage, then adds 36 months of projected OA inflow before testing the second-stage balance. It does not forecast salary changes, CPF allocation changes, accrued interest, future withdrawals, or an actual completion date.
+- The table assigns the estimated EHG to the second stage as a conservative planning convention. HDB documents that eligible deferred-income-assessment couples receive the grant and loan at key collection; other households must rely on the HFE and booking documents for actual timing.
+- If an estimated grant exceeds the second-stage amount, the calculator does not use that excess to reduce the first-stage cash target. It lacks the household's HFE and booking documents needed to model whether and when that excess can be applied.
+- Primary references: [HDB Booking of Flat](https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/booking-of-flat), [HDB Sign Agreement for Lease](https://www.hdb.gov.sg/buying-a-flat/bto-sbf-and-open-booking-of-flats/process-for-buying-a-new-flat/sign-agreement-for-lease), and [June 2026 HDB administrative details](https://www.hdb.gov.sg/-/media/hdb-pulse/news/2026/20260617-HDB-Launches-6952-Flats-Across-7-Projects-in-June-2026-BTO-Sales-Exercise/Annex-B.pdf).
+
 ## Official launch and SBF sources
 
 - [HDB February 2024 BTO and SBF release](https://www.hdb.gov.sg/hdb-pulse/news/2024/hdb-launches-5714-flats-in-feb-2024-bto-and-sbf-exercises)

@@ -24,6 +24,15 @@ This file is the source of truth for durable product choices. Update it in the s
 - Make Budget the first substantive section after the hero. The background material is collapsed by default behind the centred divider-toggle labelled `Some background information on home purchase for the normie` and exposes a plus/minus state.
 - The collapsed background group contains Modes of sale, Standard/Plus/Prime, Exercise timeline, Staying on top of it, and a short plain-English Loans and HFE + EHG explainer. HFE must be expanded as HDB Flat Eligibility and EHG as Enhanced CPF Housing Grant.
 
+### BTO two-stage downpayment plan
+
+- The Budget section includes a **BTO-only** two-stage downpayment table. It is not a resale, SBF, or Open Booking payment schedule.
+- With an HDB loan, model the first instalment as 10% of the flat price at the Agreement for Lease and the remaining downpayment at key collection. The default planning horizon to key collection is three years.
+- Show current OA and cash needed for the first instalment, then subtract the first OA use and add 36 months of projected OA inflow for the second instalment. This lets users see why cash pressure can be front-loaded while later OA can help.
+- The calculator conservatively applies its estimated EHG to the second instalment at key collection. This is a planning convention only: the actual grant amount and timing are governed by the HFE letter and booking documents.
+- If the estimated grant is larger than the second instalment, do not use the excess to reduce the first-stage cash target. The calculator has no HFE or booking data to safely model when that excess is disbursed.
+- Do not subtract the option fee from the first instalment until the user has supplied a flat type; the option fee is labelled separately as part of the downpayment.
+
 ## SBF price explorer
 
 - The primary SBF question is: **what did a flat of this type start from in this town?** The explorer therefore prioritises a dated, town-level historic snapshot over an islandwide aggregate price table.
